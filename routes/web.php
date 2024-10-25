@@ -17,5 +17,8 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'doRegister']);
 
 Route::middleware('auth:web')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+    Route::get('/admin', [DashboardController::class, 'dashboard']);
+    Route::get('/admin/profile', function () {
+        return view('admin.pages.profile.index');
+    });
 });
