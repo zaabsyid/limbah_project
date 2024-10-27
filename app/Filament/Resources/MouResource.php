@@ -123,16 +123,10 @@ class MouResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('mou_number')->label('MOU Number'),
                 Tables\Columns\TextColumn::make('customer.name')->label('Customer'),
-                Tables\Columns\TextColumn::make('mou_status')->label('Status')->enum([
-                    'draft' => 'Draft',
-                    'file' => 'File',
-                ]),
+                Tables\Columns\TextColumn::make('mou_status')->label('Status'),
                 Tables\Columns\TextColumn::make('province.name')->label('Province'),
                 Tables\Columns\TextColumn::make('city.name')->label('City'),
-                Tables\Columns\TextColumn::make('contract_period')->label('Contract Period')->enum([
-                    '2' => '2 Years',
-                    '5' => '5 Years',
-                ]),
+                Tables\Columns\TextColumn::make('contract_period')->label('Contract Period'),
                 Tables\Columns\TextColumn::make('contract_end_date')->label('End Date')->date(),
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime(),
             ])

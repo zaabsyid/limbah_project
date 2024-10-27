@@ -2,21 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Models\Limbah;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
+use App\Filament\Resources\KategoriLimbahResource\Pages;
+use App\Filament\Resources\KategoriLimbahResource\RelationManagers;
 use App\Models\KategoriLimbah;
+use Filament\Forms;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\LimbahResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\LimbahResource\RelationManagers;
 
-class LimbahResource extends Resource
+class KategoriLimbahResource extends Resource
 {
-    protected static ?string $model = Limbah::class;
+    protected static ?string $model = KategoriLimbah::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,28 +23,15 @@ class LimbahResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('id_category')
-                    ->label('Category')
-                    ->relationship('kategori', 'name')
-                    ->options(KategoriLimbah::all()->pluck('name', 'id'))
-                    ->searchable()
-                    ->required(),
                 Forms\Components\TextInput::make('code')
                     ->label('Code')
+                    ->unique()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('name')
                     ->label('Name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('price')
-                    ->label('Price')
-                    ->numeric()
-                    ->required(),
-                Forms\Components\TextInput::make('unit')
-                    ->label('Unit')
-                    ->required()
-                    ->maxLength(100),
             ]);
     }
 
@@ -53,12 +39,10 @@ class LimbahResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kategori.name')->label('Category'),
                 Tables\Columns\TextColumn::make('code')->label('Code'),
                 Tables\Columns\TextColumn::make('name')->label('Name'),
-                Tables\Columns\TextColumn::make('price')->label('Price')->money('IDR'),
-                Tables\Columns\TextColumn::make('unit')->label('Unit'),
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')->label('Updated At')->dateTime(),
             ])
             ->filters([
                 //
@@ -83,9 +67,9 @@ class LimbahResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLimbahs::route('/'),
-            'create' => Pages\CreateLimbah::route('/create'),
-            'edit' => Pages\EditLimbah::route('/{record}/edit'),
+            'index' => Pages\ListKategoriLimbahs::route('/'),
+            'create' => Pages\CreateKategoriLimbah::route('/create'),
+            'edit' => Pages\EditKategoriLimbah::route('/{record}/edit'),
         ];
     }
 }

@@ -22,12 +22,19 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        $this->call([
+            ProvinceSeeder::class,
+            CitySeeder::class,
+            DriverSeeder::class,
+            KategoriLimbahSeeder::class,
+        ]);
+
         DB::table('users')->insert([
             [
                 'id' => 1,
                 'name' => 'admin',
-                'email' => 'limbah@admin.com',
-                'password' => Hash::make('adminlimbah123'),
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('password'),
             ]
         ]);
     }

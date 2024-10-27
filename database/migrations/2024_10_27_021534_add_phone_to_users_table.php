@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // Menambahkan kolom phone ke tabel baru
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone');
+            $table->string('phone')->nullable();
         });
     }
 

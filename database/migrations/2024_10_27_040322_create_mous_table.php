@@ -26,13 +26,11 @@ return new class extends Migration
             $table->string('customer_image_2')->nullable();
             $table->string('customer_materai_1')->nullable();
             $table->string('customer_materai_2')->nullable();
-            $table->enum('mou_status', ['draft', 'file'])->default('status');
+            $table->enum('mou_status', ['draft', 'file'])->default('draft');
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
             $table->enum('contract_period', ['2', '5'])->default('2');
             $table->date('contract_end_date');
-            $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade');
-            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
