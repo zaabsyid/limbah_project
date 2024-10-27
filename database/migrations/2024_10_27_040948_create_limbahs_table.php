@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('limbahs', function (Blueprint $table) {
             $table->id();
-            $table->string('city');
-            $table->string('status')->default('pending'); // pending, picked_up, or terminated
-            $table->date('pickup_date');
-            $table->integer('weight_kg');
-            $table->string('manifest_code')->nullable();
-            $table->string('team_name')->nullable();
+            $table->foreignId('id_category')->constrained('kategori_limbahs')->onDelete('cascade');
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->integer('price');
+            $table->string('unit');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,10 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Limbah extends Model
 {
-    protected $fillable = ['city', 'status', 'pickup_date', 'weight_kg', 'manifest_code', 'team_name'];
+    use HasFactory, SoftDeletes;
+
+    protected $table = 'limbahs';
+
+    protected $fillable = [
+        'id_category',
+        'code',
+        'name',
+        'price',
+        'unit',
+    ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriLimbah::class, 'id_category');
+    }
 
     public function isPending()
     {
