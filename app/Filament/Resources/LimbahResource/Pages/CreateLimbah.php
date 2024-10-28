@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateLimbah extends CreateRecord
 {
     protected static string $resource = LimbahResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

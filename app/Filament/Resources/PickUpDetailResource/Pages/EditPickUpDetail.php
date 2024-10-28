@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\LimbahResource\Pages;
+namespace App\Filament\Resources\PickUpDetailResource\Pages;
 
-use App\Filament\Resources\LimbahResource;
+use App\Filament\Resources\PickUpDetailResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditLimbah extends EditRecord
+class EditPickUpDetail extends EditRecord
 {
-    protected static string $resource = LimbahResource::class;
+    protected static string $resource = PickUpDetailResource::class;
 
     protected function getHeaderActions(): array
     {

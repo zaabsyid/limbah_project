@@ -53,15 +53,17 @@ class LimbahResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kategori.name')->label('Category'),
-                Tables\Columns\TextColumn::make('code')->label('Code'),
-                Tables\Columns\TextColumn::make('name')->label('Name'),
-                Tables\Columns\TextColumn::make('price')->label('Price')->money('IDR'),
-                Tables\Columns\TextColumn::make('unit')->label('Unit'),
-                Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime(),
+                Tables\Columns\TextColumn::make('kategori.name')->label('Category')->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('code')->label('Code')->searchable(),
+                Tables\Columns\TextColumn::make('name')->label('Name')->searchable(),
+                Tables\Columns\TextColumn::make('price')->label('Price')->money('IDR')->sortable(),
+                Tables\Columns\TextColumn::make('unit')->label('Unit')->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime()->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('category')
+                    ->relationship('kategori', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -69,6 +71,7 @@ class LimbahResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteAction::make()
                 ]),
             ]);
     }

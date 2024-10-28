@@ -39,10 +39,10 @@ class KategoriLimbahResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('code')->label('Code'),
-                Tables\Columns\TextColumn::make('name')->label('Name'),
-                Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')->label('Updated At')->dateTime(),
+                Tables\Columns\TextColumn::make('code')->label('Code')->searchable(),
+                Tables\Columns\TextColumn::make('name')->label('Name')->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime()->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')->label('Updated At')->dateTime()->sortable(),
             ])
             ->filters([
                 //
