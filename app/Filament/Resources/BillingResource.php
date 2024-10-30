@@ -2,20 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PickUpDetailResource\Pages;
-use App\Filament\Resources\PickUpDetailResource\RelationManagers;
-use App\Models\PickUpDetail;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Billing;
+use App\Models\Customer;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BillingResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BillingResource\RelationManagers;
 
-class PickUpDetailResource extends Resource
+class BillingResource extends Resource
 {
-    protected static ?string $model = PickUpDetail::class;
+    protected static ?string $model = Billing::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,18 +24,29 @@ class PickUpDetailResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('customer_id')
+                    ->required()
+                    ->options(Customer::all()->pluck('name', 'id'))
+                    ->label('Customer')
+                    ->numeric(),
                 Forms\Components\TextInput::make('pick_up_id')
                     ->required()
+                    ->label('Pick Up')
                     ->numeric(),
-                Forms\Components\TextInput::make('limbah_id')
+                Forms\Components\TextInput::make('customer_name')
                     ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('price')
+                    ->label('Customer Name')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('amount')
                     ->required()
+                    ->label('Amount')
                     ->numeric(),
-                Forms\Components\TextInput::make('qty')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\DatePicker::make('due_date')
+                    ->label('Due Date')
+                    ->required(),
+                Forms\Components\TextInput::make('status')
+                    ->label('Status')
+                    ->required(),
             ]);
     }
 
@@ -42,18 +54,21 @@ class PickUpDetailResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('customer_id')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('pick_up_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('limbah_id')
+                Tables\Columns\TextColumn::make('customer_name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('amount')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('price')
-                    ->money()
+                Tables\Columns\TextColumn::make('due_date')
+                    ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('qty')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -90,9 +105,9 @@ class PickUpDetailResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPickUpDetails::route('/'),
-            'create' => Pages\CreatePickUpDetail::route('/create'),
-            'edit' => Pages\EditPickUpDetail::route('/{record}/edit'),
+            'index' => Pages\ListBillings::route('/'),
+            'create' => Pages\CreateBilling::route('/create'),
+            'edit' => Pages\EditBilling::route('/{record}/edit'),
         ];
     }
 }

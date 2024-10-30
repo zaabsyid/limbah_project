@@ -43,4 +43,10 @@ class Customer extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    // Relasi dengan Billing
+    public function billings()
+    {
+        return $this->hasMany(Billing::class);
+    }
 }
