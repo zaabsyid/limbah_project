@@ -27,8 +27,7 @@ class BillingResource extends Resource
                 Forms\Components\Select::make('customer_id')
                     ->required()
                     ->options(Customer::all()->pluck('name', 'id'))
-                    ->label('Customer')
-                    ->numeric(),
+                    ->label('Customer'),
                 Forms\Components\TextInput::make('pick_up_id')
                     ->required()
                     ->label('Pick Up')
