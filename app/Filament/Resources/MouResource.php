@@ -10,7 +10,16 @@ use App\Models\Customer;
 use App\Models\Province;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Exports\MousExport;
+use App\Imports\MousImport;
+use Illuminate\Support\Arr;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Tables\Actions\BulkAction;
+use Illuminate\Database\Eloquent\Collection;
+use Filament\Notifications\Notification;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\MouResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -120,6 +129,46 @@ class MouResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            // gpt
+            // ->actions([
+            //     Tables\Actions\Action::make('Export Excel')
+            //         ->button()
+            //         ->action(function () {
+            //             return Excel::download(new MousExport, 'mou.xlsx');
+            //         }),
+            //     Tables\Actions\Action::make('Import Excel')
+            //         ->form([
+            //             FileUpload::make('file')->required(),
+            //         ])
+            //         ->action(function (array $data) {
+            //             Excel::import(new MousImport, $data['file']);
+            //             Notification::make()
+            //                 ->title('Import berhasil!')
+            //                 ->success()
+            //                 ->send();
+            //         }),
+            // ])
+            ->headerActions([
+                Action::make('import')
+                    ->label('Import Excel')
+                    ->icon('heroicon-o-rectangle-stack')
+                    ->form([
+                        Forms\Components\FileUpload::make('file')
+                            ->required()
+                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])
+                    ])
+                    ->action(function (array $data) {
+                        Excel::import(new MousImport, $data['file']);
+                        Notification::make()
+                            ->title('Import berhasil!')
+                            ->success()
+                            ->send();
+                    }),
+                Action::make('export')
+                    ->label('Export Excel')
+                    ->icon('heroicon-o-rectangle-stack')
+                    ->action(fn() => Excel::download(new MousExport, 'Mou.xlsx'))
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('mou_number')->label('MOU Number'),
                 Tables\Columns\TextColumn::make('customer.name')->label('Customer'),
