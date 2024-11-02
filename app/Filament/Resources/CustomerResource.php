@@ -34,13 +34,20 @@ class CustomerResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->label('Email'),
-                Forms\Components\Textarea::make('address')
+                Forms\Components\TextInput::make('phone')
+                    ->tel()
+                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                     ->required()
-                    ->label('Address'),
+                    ->maxLength(15)
+                    ->prefixIcon('heroicon-s-phone')
+                    ->label('Phone'),
                 Forms\Components\TextInput::make('occupation')
                     ->required()
                     ->maxLength(255)
                     ->label('Occupation'),
+                Forms\Components\Textarea::make('address')
+                    ->required()
+                    ->label('Address'),
                 Forms\Components\TextInput::make('nik')
                     ->required()
                     ->label('NIK'),
@@ -50,10 +57,6 @@ class CustomerResource extends Resource
                 Forms\Components\TextInput::make('npwp')
                     ->label('NPWP')
                     ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                    ->label('Image')
-                    ->directory('customers/images')
-                    ->image(),
                 Forms\Components\Select::make('province_id')
                     ->label('Province')
                     ->options(Province::all()->pluck('name', 'id'))
@@ -64,6 +67,14 @@ class CustomerResource extends Resource
                     ->options(City::all()->pluck('name', 'id'))
                     ->searchable()
                     ->required(),
+                Forms\Components\Grid::make('Image')
+                    ->schema([
+                        Forms\Components\FileUpload::make('image')
+                            ->label('Image')
+                            ->directory('customers/images')
+                            ->image(),
+                    ])
+
             ]);
     }
 

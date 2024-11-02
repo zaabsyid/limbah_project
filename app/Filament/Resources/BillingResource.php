@@ -26,6 +26,7 @@ class BillingResource extends Resource
             ->schema([
                 Forms\Components\Select::make('customer_id')
                     ->required()
+                    ->native(false)
                     ->options(Customer::all()->pluck('name', 'id'))
                     ->label('Customer'),
                 Forms\Components\TextInput::make('pick_up_id')
@@ -43,8 +44,14 @@ class BillingResource extends Resource
                 Forms\Components\DatePicker::make('due_date')
                     ->label('Due Date')
                     ->required(),
-                Forms\Components\TextInput::make('status')
+                Forms\Components\Select::make('status')
                     ->label('Status')
+                    ->options([
+                        'putus_kontrak' => 'Putuh Kontrak',
+                        'sudah_diperpanjang' => 'Sudah Diperpanjang',
+                        'belum_diperpanjang' => 'Belum Diperpanjang',
+                    ])
+                    ->native(false)
                     ->required(),
             ]);
     }

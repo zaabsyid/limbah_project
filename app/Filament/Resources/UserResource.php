@@ -41,7 +41,8 @@ class UserResource extends Resource
                     ->minLength(8)
                     ->maxLength(255)
                     ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                    ->hiddenOn('edit'),
+                    ->hiddenOn('edit')
+                    ->revealable(),
                 Forms\Components\TextInput::make('phone')
                     ->label('Phone')
                     ->tel()
