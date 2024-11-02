@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pick_ups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mou_id')->constrained('mous')->onDelete('cascade');
-            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            // $table->foreignId('mou_id')->constrained('mous')->onDelete('cascade');
+            // $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->foreignId('driver_id')->constrained('drivers')->onDelete('cascade');
             $table->string('pickup_code')->unique();
             $table->date('pickup_date');

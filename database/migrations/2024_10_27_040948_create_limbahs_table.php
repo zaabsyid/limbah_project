@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->string('unit');
+            $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade');
+            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
