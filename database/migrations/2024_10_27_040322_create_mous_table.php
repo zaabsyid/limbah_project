@@ -15,13 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('mou_number');
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
-            // $table->string('customer_name')->nullable();
-            // $table->string('customer_nik')->nullable();
-            // $table->string('customer_address')->nullable();
-            // $table->string('customer_occupation')->nullable();
-            // $table->string('customer_ktp_image')->nullable();
-            // $table->string('customer_npwp_image')->nullable();
-            // $table->string('customer_sip_str_image')->nullable();
             $table->string('customer_image_1')->nullable();
             $table->string('customer_image_2')->nullable();
             $table->string('customer_materai_1')->nullable();

@@ -25,6 +25,10 @@ class Customer extends Model
         'str_sip',
         'npwp',
         'image',
+        'customer_image_2',
+        'customer_npwp_file',
+        'customer_ktp_file',
+        'customer_str_sip_file',
         'province_id',
         'city_id',
     ];

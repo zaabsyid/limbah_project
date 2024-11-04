@@ -45,18 +45,26 @@ class CustomerResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->label('Occupation'),
-                Forms\Components\Textarea::make('address')
-                    ->required()
-                    ->label('Address'),
-                Forms\Components\TextInput::make('nik')
-                    ->required()
-                    ->label('NIK'),
-                Forms\Components\TextInput::make('str_sip')
-                    ->label('STR/SIP')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('npwp')
-                    ->label('NPWP')
-                    ->maxLength(255),
+                Forms\Components\Grid::make(3)
+                    ->schema([
+                        Forms\Components\TextInput::make('nik')
+                            ->required()
+                            ->label('NIK'),
+                        Forms\Components\TextInput::make('str_sip')
+                            ->required()
+                            ->label('STR/SIP')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('npwp')
+                            ->required()
+                            ->label('NPWP')
+                            ->maxLength(255),
+                    ]),
+                Forms\Components\Grid::make(1)
+                    ->schema([
+                        Forms\Components\TextArea::make('address')
+                            ->required()
+                            ->label('Address'),
+                    ]),
                 Forms\Components\Select::make('province_id')
                     ->label('Province')
                     ->options(Province::all()->pluck('name', 'id'))
@@ -67,13 +75,25 @@ class CustomerResource extends Resource
                     ->options(City::all()->pluck('name', 'id'))
                     ->searchable()
                     ->required(),
-                Forms\Components\Grid::make('Image')
-                    ->schema([
-                        Forms\Components\FileUpload::make('image')
-                            ->label('Image')
-                            ->directory('customers/images')
-                            ->image(),
-                    ])
+                Forms\Components\FileUpload::make('image')
+                    ->image()
+                    ->imageEditor()
+                    ->label('Customer Image 1')
+                    ->directory('customers/images'),
+                Forms\Components\FileUpload::make('customer_image_2')
+                    ->image()
+                    ->imageEditor()
+                    ->label('Customer Image 2')
+                    ->directory('customers/images'),
+                Forms\Components\FileUpload::make('customer_npwp_file')
+                    ->label('Customer NPWP')
+                    ->directory('customers/npwp'),
+                Forms\Components\FileUpload::make('customer_ktp_file')
+                    ->label('Customer KTP')
+                    ->directory('customers/ktp'),
+                Forms\Components\FileUpload::make('customer_str_sip_file')
+                    ->label('Customer STR/SIP')
+                    ->directory('customers/str-sip'),
 
             ]);
     }

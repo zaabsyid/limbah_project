@@ -44,64 +44,6 @@ class MouResource extends Resource
                     ->options(Customer::all()->pluck('name', 'id'))
                     ->searchable()
                     ->required(),
-                Forms\Components\TextInput::make('customer_name')
-                    ->label('Customer Name')
-                    ->maxLength(255)
-                    ->nullable(),
-                Forms\Components\TextInput::make('customer_nik')
-                    ->label('Customer NIK')
-                    ->maxLength(20)
-                    ->nullable(),
-                Forms\Components\Textarea::make('customer_address')
-                    ->label('Customer Address')
-                    ->nullable(),
-                Forms\Components\TextInput::make('customer_occupation')
-                    ->label('Customer Occupation')
-                    ->maxLength(255)
-                    ->nullable(),
-                Forms\Components\FileUpload::make('customer_ktp_image')
-                    ->label('Customer KTP Image')
-                    ->directory('mous/ktp_images')
-                    ->image()
-                    ->nullable(),
-                Forms\Components\FileUpload::make('customer_npwp_image')
-                    ->label('Customer NPWP Image')
-                    ->directory('mous/npwp_images')
-                    ->image()
-                    ->nullable(),
-                Forms\Components\FileUpload::make('customer_sip_str_image')
-                    ->label('Customer SIP/STR Image')
-                    ->directory('mous/sip_str_images')
-                    ->image()
-                    ->nullable(),
-                Forms\Components\FileUpload::make('customer_image_1')
-                    ->label('Customer Image 1')
-                    ->directory('mous/images')
-                    ->image()
-                    ->nullable(),
-                Forms\Components\FileUpload::make('customer_image_2')
-                    ->label('Customer Image 2')
-                    ->directory('mous/images')
-                    ->image()
-                    ->nullable(),
-                Forms\Components\FileUpload::make('customer_materai_1')
-                    ->label('Customer Materai 1')
-                    ->directory('mous/materai')
-                    ->image()
-                    ->nullable(),
-                Forms\Components\FileUpload::make('customer_materai_2')
-                    ->label('Customer Materai 2')
-                    ->directory('mous/materai')
-                    ->image()
-                    ->nullable(),
-                Forms\Components\Select::make('mou_status')
-                    ->label('MOU Status')
-                    ->options([
-                        'draft' => 'Draft',
-                        'file' => 'File',
-                    ])
-                    ->default('draft')
-                    ->required(),
                 Forms\Components\Select::make('province_id')
                     ->label('Province')
                     ->options(Province::all()->pluck('name', 'id'))
@@ -118,11 +60,35 @@ class MouResource extends Resource
                         '2' => '2 Years',
                         '5' => '5 Years',
                     ])
-                    ->default('2')
                     ->required(),
                 Forms\Components\DatePicker::make('contract_end_date')
                     ->label('Contract End Date')
                     ->required(),
+                Forms\Components\Select::make('mou_status_file')
+                    ->label('MOU Status File')
+                    ->options([
+                        'draft' => 'Draft',
+                        'file' => 'File',
+                    ])
+                    ->required(),
+                Forms\Components\Select::make('status')
+                    ->label('MOU Status')
+                    ->options([
+                        'putus_kontrak' => 'Putus Kontrak',
+                        'sudah_perpanjang' => 'Sudah Diperpanjang',
+                        'belum_diperpanjang' => 'Belum Diperpanjang',
+                    ])
+                    ->required(),
+                Forms\Components\FileUpload::make('customer_materai_1')
+                    ->label('Customer Materai 1')
+                    ->directory('mous/materai')
+                    ->image()
+                    ->nullable(),
+                Forms\Components\FileUpload::make('customer_materai_2')
+                    ->label('Customer Materai 2')
+                    ->directory('mous/materai')
+                    ->image()
+                    ->nullable(),
             ]);
     }
 
@@ -172,7 +138,8 @@ class MouResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('mou_number')->label('MOU Number'),
                 Tables\Columns\TextColumn::make('customer.name')->label('Customer'),
-                Tables\Columns\TextColumn::make('mou_status')->label('Status'),
+                Tables\Columns\TextColumn::make('status')->label('Status Mou'),
+                Tables\Columns\TextColumn::make('mou_status_file')->label('Status File'),
                 Tables\Columns\TextColumn::make('province.name')->label('Province'),
                 Tables\Columns\TextColumn::make('city.name')->label('City'),
                 Tables\Columns\TextColumn::make('contract_period')->label('Contract Period'),
