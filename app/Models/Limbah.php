@@ -18,6 +18,8 @@ class Limbah extends Model
         'name',
         'price',
         'unit',
+        'province_id',
+        'city_id'
     ];
 
     public function kategori()

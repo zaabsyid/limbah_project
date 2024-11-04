@@ -3,8 +3,10 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
+use App\Models\City;
 use Filament\Tables;
 use App\Models\Limbah;
+use App\Models\Province;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\KategoriLimbah;
@@ -46,6 +48,16 @@ class LimbahResource extends Resource
                     ->label('Unit')
                     ->required()
                     ->maxLength(100),
+                Forms\Components\Select::make('province_id')
+                    ->label('Province')
+                    ->options(Province::all()->pluck('name', 'id'))
+                    ->searchable()
+                    ->required(),
+                Forms\Components\Select::make('city_id')
+                    ->label('City')
+                    ->options(City::all()->pluck('name', 'id'))
+                    ->searchable()
+                    ->required(),
             ]);
     }
 

@@ -61,7 +61,7 @@ class CustomerResource extends Resource
                     ]),
                 Forms\Components\Grid::make(1)
                     ->schema([
-                        Forms\Components\TextArea::make('address')
+                        Forms\Components\Textarea::make('address')
                             ->required()
                             ->label('Address'),
                     ]),
