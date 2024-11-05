@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('limbahs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_category')->constrained('kategori_limbahs')->onDelete('cascade');
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->integer('price');
-            $table->string('unit');
+            $table->string('code_manifest')->nullable();
+            $table->string('document_manifest')->nullable();
+            $table->integer('weight_limbah');
+            $table->enum('pickup_1', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->enum('pickup_2', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->enum('pickup_3', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->enum('pickup_4', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->foreignId('driver_id')->constrained('drivers')->onDelete('cascade');
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
             $table->timestamps();
