@@ -25,22 +25,23 @@ class LimbahResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('code')
-                    ->label('Code')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('name')
-                    ->label('Name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('price')
-                    ->label('Price')
-                    ->numeric()
+                Forms\Components\TextInput::make('code_manifest')->label('Kode Manifest')->nullable(),
+                Forms\Components\FileUpload::make('document_manifest')->label('Dokumen Manifest')->directory('limbahs/manifests')->nullable(),
+                Forms\Components\TextInput::make('weight_limbah')->label('Berat Limbah')->numeric()->required(),
+                Forms\Components\Select::make('driver_id')
+                    ->relationship('driver', 'name')
+                    ->label('Driver')
                     ->required(),
-                Forms\Components\TextInput::make('unit')
-                    ->label('Unit')
-                    ->required()
-                    ->maxLength(100),
+                Forms\Components\Repeater::make('pickups')
+                    ->schema([
+                        Forms\Components\Select::make('pickup_status')
+                            ->options([
+                                'belum_dijemput' => 'Belum Dijemput',
+                                'sudah_dijemput' => 'Sudah Dijemput',
+                                'putus_kontrak' => 'Putus Kontrak',
+                            ])
+                            ->label('Status Penjemputan'),
+                    ]),
                 Forms\Components\Select::make('province_id')
                     ->label('Province')
                     ->options(Province::all()->pluck('name', 'id'))
@@ -72,7 +73,11 @@ class LimbahResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('province_id')->label('Province')->relationship('province', 'name'),
+                Tables\Filters\SelectFilter::make('driver_id')->label('Driver')->relationship('driver', 'name'),
+            ]);;
     }
 
     public static function getRelations(): array

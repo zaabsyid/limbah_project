@@ -47,17 +47,12 @@ class CustomerResource extends Resource
                     ->label('Occupation'),
                 Forms\Components\Grid::make(3)
                     ->schema([
-                        Forms\Components\TextInput::make('nik')
-                            ->required()
-                            ->label('NIK'),
-                        Forms\Components\TextInput::make('str_sip')
-                            ->required()
-                            ->label('STR/SIP')
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('npwp')
-                            ->required()
-                            ->label('NPWP')
-                            ->maxLength(255),
+                        Forms\Components\TextInput::make('nik')->required(),
+                        Forms\Components\FileUpload::make('ktp_image')->label('Upload KTP')->directory('customers/ktp')->required(),
+                        Forms\Components\TextInput::make('str_sip')->label('STP/SIR')->required(),
+                        Forms\Components\FileUpload::make('str_sip_image')->label('Upload STP/SIR')->directory('customers/stp_sir')->required(),
+                        Forms\Components\TextInput::make('npwp')->label('No NPWP')->required(),
+                        Forms\Components\FileUpload::make('npwp_image')->label('Upload NPWP')->directory('customers/npwp')->required(),
                     ]),
                 Forms\Components\Grid::make(1)
                     ->schema([
@@ -75,30 +70,7 @@ class CustomerResource extends Resource
                     ->options(City::all()->pluck('name', 'id'))
                     ->searchable()
                     ->required(),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->imageEditor()
-                    ->label('Customer Image 1')
-                    ->directory('customers/images')
-                    ->required(),
-                Forms\Components\FileUpload::make('customer_image_2')
-                    ->image()
-                    ->imageEditor()
-                    ->label('Customer Image 2')
-                    ->directory('customers/images')
-                    ->required(),
-                Forms\Components\FileUpload::make('customer_npwp_file')
-                    ->label('Customer NPWP')
-                    ->directory('customers/npwp')
-                    ->required(),
-                Forms\Components\FileUpload::make('customer_ktp_file')
-                    ->label('Customer KTP')
-                    ->directory('customers/ktp')
-                    ->required(),
-                Forms\Components\FileUpload::make('customer_str_sip_file')
-                    ->label('Customer STR/SIP')
-                    ->directory('customers/str-sip')
-                    ->required(),
+
 
             ]);
     }
@@ -116,7 +88,7 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('province_id')->label('Province')->relationship('province', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

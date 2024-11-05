@@ -24,22 +24,16 @@ class BillingResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('customer_id')
-                    ->required()
-                    ->native(false)
-                    ->options(Customer::all()->pluck('name', 'id'))
-                    ->label('Customer'),
-                Forms\Components\DatePicker::make('due_date')
-                    ->label('Due Date')
+                Forms\Components\FileUpload::make('document_payment')
+                    ->label('Bukti Pembayaran')
+                    ->directory('billings/documents')
                     ->required(),
                 Forms\Components\Select::make('status')
-                    ->label('Status')
                     ->options([
-                        'putus_kontrak' => 'Putuh Kontrak',
-                        'sudah_diperpanjang' => 'Sudah Diperpanjang',
+                        'putus_kontrak' => 'Putus Kontrak',
+                        'sudah_perpanjang' => 'Sudah Perpanjang',
                         'belum_diperpanjang' => 'Belum Diperpanjang',
                     ])
-                    ->native(false)
                     ->required(),
             ]);
     }
@@ -48,25 +42,9 @@ class BillingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('due_date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('customer.name')->label('Customer'),
+                Tables\Columns\TextColumn::make('status')->label('Status'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Tanggal'),
             ])
             ->filters([
                 //
@@ -95,5 +73,10 @@ class BillingResource extends Resource
             'create' => Pages\CreateBilling::route('/create'),
             'edit' => Pages\EditBilling::route('/{record}/edit'),
         ];
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 }
