@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
             ProvinceSeeder::class,
             CitySeeder::class,
             DriverSeeder::class,
-            KategoriLimbahSeeder::class,
         ]);
 
         DB::table('users')->insert([

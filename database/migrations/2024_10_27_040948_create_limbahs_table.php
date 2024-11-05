@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('limbahs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_category')->constrained('kategori_limbahs')->onDelete('cascade');
             $table->string('code')->unique();
             $table->string('name');
             $table->integer('price');

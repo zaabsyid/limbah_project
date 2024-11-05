@@ -13,7 +13,6 @@ class Limbah extends Model
     protected $table = 'limbahs';
 
     protected $fillable = [
-        'id_category',
         'code',
         'name',
         'price',
@@ -21,11 +20,6 @@ class Limbah extends Model
         'province_id',
         'city_id'
     ];
-
-    public function kategori()
-    {
-        return $this->belongsTo(KategoriLimbah::class, 'id_category');
-    }
 
     public function isPending()
     {
