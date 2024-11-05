@@ -12,9 +12,4 @@ class Billing extends Model
     {
         return $this->belongsTo(Customer::class);
     }
-
-    public function pickUp()
-    {
-        return $this->belongsToMany(PickUp::class, 'billing_pickup');
-    }
 }

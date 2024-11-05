@@ -9,7 +9,6 @@ use App\Models\Limbah;
 use App\Models\Province;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use App\Models\KategoriLimbah;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\LimbahResource\Pages;
@@ -26,12 +25,6 @@ class LimbahResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('id_category')
-                    ->label('Category')
-                    ->relationship('kategori', 'name')
-                    ->options(KategoriLimbah::all()->pluck('name', 'id'))
-                    ->searchable()
-                    ->required(),
                 Forms\Components\TextInput::make('code')
                     ->label('Code')
                     ->required()
@@ -65,17 +58,11 @@ class LimbahResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kategori.name')->label('Category')->searchable()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('code')->label('Code')->searchable(),
                 Tables\Columns\TextColumn::make('name')->label('Name')->searchable(),
                 Tables\Columns\TextColumn::make('price')->label('Price')->money('IDR')->sortable(),
                 Tables\Columns\TextColumn::make('unit')->label('Unit')->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime()->sortable(),
-            ])
-            ->filters([
-                Tables\Filters\SelectFilter::make('category')
-                    ->relationship('kategori', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

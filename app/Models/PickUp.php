@@ -46,10 +46,4 @@ class PickUp extends Model
     {
         return $this->hasMany(PickUpDetail::class);
     }
-
-    // Relasi dengan Billing
-    public function billings()
-    {
-        return $this->belongsToMany(Billing::class, 'billing_pickup');
-    }
 }

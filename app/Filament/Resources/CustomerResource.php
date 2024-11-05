@@ -79,21 +79,26 @@ class CustomerResource extends Resource
                     ->image()
                     ->imageEditor()
                     ->label('Customer Image 1')
-                    ->directory('customers/images'),
+                    ->directory('customers/images')
+                    ->required(),
                 Forms\Components\FileUpload::make('customer_image_2')
                     ->image()
                     ->imageEditor()
                     ->label('Customer Image 2')
-                    ->directory('customers/images'),
+                    ->directory('customers/images')
+                    ->required(),
                 Forms\Components\FileUpload::make('customer_npwp_file')
                     ->label('Customer NPWP')
-                    ->directory('customers/npwp'),
+                    ->directory('customers/npwp')
+                    ->required(),
                 Forms\Components\FileUpload::make('customer_ktp_file')
                     ->label('Customer KTP')
-                    ->directory('customers/ktp'),
+                    ->directory('customers/ktp')
+                    ->required(),
                 Forms\Components\FileUpload::make('customer_str_sip_file')
                     ->label('Customer STR/SIP')
-                    ->directory('customers/str-sip'),
+                    ->directory('customers/str-sip')
+                    ->required(),
 
             ]);
     }
