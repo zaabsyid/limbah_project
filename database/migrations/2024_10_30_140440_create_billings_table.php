@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
-            $table->string('customer_name');
-            $table->integer('amount');
             $table->date('due_date');
             $table->enum('status', ['putus_kontrak', 'sudah_perpanjang', 'belum_diperpanjang'])->default('belum_diperpanjang');
             $table->timestamps();

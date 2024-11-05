@@ -29,18 +29,6 @@ class BillingResource extends Resource
                     ->native(false)
                     ->options(Customer::all()->pluck('name', 'id'))
                     ->label('Customer'),
-                Forms\Components\TextInput::make('pick_up_id')
-                    ->required()
-                    ->label('Pick Up')
-                    ->numeric(),
-                Forms\Components\TextInput::make('customer_name')
-                    ->required()
-                    ->label('Customer Name')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('amount')
-                    ->required()
-                    ->label('Amount')
-                    ->numeric(),
                 Forms\Components\DatePicker::make('due_date')
                     ->label('Due Date')
                     ->required(),
@@ -61,14 +49,6 @@ class BillingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('customer_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('pick_up_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('customer_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('amount')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('due_date')
