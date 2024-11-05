@@ -18,6 +18,11 @@ class Province extends Model
         return $this->hasMany(Customer::class);
     }
 
+    public function limbah()
+    {
+        return $this->hasMany(Limbah::class);
+    }
+
     public function mou()
     {
         return $this->hasMany(Mou::class);

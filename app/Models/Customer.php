@@ -21,16 +21,17 @@ class Customer extends Model
         'phone',
         'address',
         'occupation',
+        'ktp_image',
         'nik',
         'str_sip',
+        'str_sip_image',
+        'npwp_image',
         'npwp',
-        'image',
-        'customer_image_2',
-        'customer_npwp_file',
-        'customer_ktp_file',
-        'customer_str_sip_file',
         'province_id',
         'city_id',
+        'created_at',
+        'deleted_at'
+
     ];
 
     /**
@@ -47,11 +48,5 @@ class Customer extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
-    }
-
-    // Relasi dengan Billing
-    public function billings()
-    {
-        return $this->hasMany(Billing::class);
     }
 }

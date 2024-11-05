@@ -26,6 +26,8 @@ class Mou extends Model
         'city_id',
         'contract_period',
         'contract_end_date',
+        'created_at',
+        'deleted_at'
     ];
 
     /**

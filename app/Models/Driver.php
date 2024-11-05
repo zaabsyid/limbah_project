@@ -19,5 +19,7 @@ class Driver extends Model
         'email',
         'phone',
         'address',
+        'created_at',
+        'deleted_at'
     ];
 }

@@ -13,13 +13,34 @@ class Limbah extends Model
     protected $table = 'limbahs';
 
     protected $fillable = [
-        'code',
-        'name',
-        'price',
-        'unit',
+        'code_manifest',
+        'document_manifest',
+        'weight_limbah',
+        'pickup_1',
+        'pickup_2',
+        'pickup_3',
+        'pickup_4',
+        'driver_id',
         'province_id',
-        'city_id'
+        'city_id',
+        'created_at',
+        'deleted_at'
     ];
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
+    }
 
     public function isPending()
     {
