@@ -34,6 +34,17 @@ class Customer extends Model
 
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($customer) {
+            // Buat record billing baru saat customer dibuat
+            Billing::create([
+                'customer_id' => $customer->id,
+                'status' => 'belum_diperpanjang', // Set status default jika ada
+            ]);
+        });
+    }
+
     /**
      * Define the relationship with the Province model.
      */
@@ -48,5 +59,10 @@ class Customer extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function billing()
+    {
+        return $this->hasOne(Billing::class);
     }
 }

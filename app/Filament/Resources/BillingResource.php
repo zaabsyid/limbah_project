@@ -24,6 +24,9 @@ class BillingResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('customer_id')
+                    ->disabled()
+                    ->label('Customer ID'),
                 Forms\Components\FileUpload::make('document_payment')
                     ->label('Bukti Pembayaran')
                     ->directory('billings/documents')
@@ -34,7 +37,8 @@ class BillingResource extends Resource
                         'sudah_perpanjang' => 'Sudah Perpanjang',
                         'belum_diperpanjang' => 'Belum Diperpanjang',
                     ])
-                    ->required(),
+                    ->required()
+                    ->label('Status'),
             ]);
     }
 
