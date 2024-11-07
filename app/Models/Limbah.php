@@ -13,6 +13,7 @@ class Limbah extends Model
     protected $table = 'limbahs';
 
     protected $fillable = [
+        'customer_id',
         'code_manifest',
         'document_manifest',
         'weight_limbah',
@@ -26,6 +27,11 @@ class Limbah extends Model
         'created_at',
         'deleted_at'
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 
     public function province()
     {
