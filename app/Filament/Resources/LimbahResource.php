@@ -52,6 +52,9 @@ class LimbahResource extends Resource
                     ])
                     ->label('Pickup 1')
                     ->default('belum_dijemput'),
+                Forms\Components\DatePicker::make('date_pickup_1')
+                    ->label('Tanggal Penjemputan 1')
+                    ->required(),
                 Forms\Components\Radio::make('pickup_2')
                     ->options([
                         'belum_dijemput' => 'Belum Dijemput',
@@ -60,6 +63,9 @@ class LimbahResource extends Resource
                     ])
                     ->label('Pickup 2')
                     ->default('belum_dijemput'),
+                Forms\Components\DatePicker::make('date_pickup_2')
+                    ->label('Tanggal Penjemputan 2')
+                    ->required(),
                 Forms\Components\Radio::make('pickup_3')
                     ->options([
                         'belum_dijemput' => 'Belum Dijemput',
@@ -68,6 +74,9 @@ class LimbahResource extends Resource
                     ])
                     ->label('Pickup 3')
                     ->default('belum_dijemput'),
+                Forms\Components\DatePicker::make('date_pickup_3')
+                    ->label('Tanggal Penjemputan 3')
+                    ->required(),
                 Forms\Components\Radio::make('pickup_4')
                     ->options([
                         'belum_dijemput' => 'Belum Dijemput',
@@ -76,6 +85,9 @@ class LimbahResource extends Resource
                     ])
                     ->label('Pickup 4')
                     ->default('belum_dijemput'),
+                Forms\Components\DatePicker::make('date_pickup_3')
+                    ->label('Tanggal Penjemputan 3')
+                    ->required(),
                 // Forms\Components\Repeater::make('pickups')
                 //     ->schema([
                 //         Forms\Components\Select::make('pickup_status')
@@ -108,9 +120,16 @@ class LimbahResource extends Resource
                 Tables\Columns\TextColumn::make('weight_limbah')->label('Berat Limbah (kg)'),
                 Tables\Columns\TextColumn::make('driver.name')->label('Driver'),
                 Tables\Columns\TextColumn::make('pickup_1')->label('Pickup 1'),
+                Tables\Columns\TextColumn::make('date_pickup_1')->label('Tanggal Penjemputan 1')->date(),
                 Tables\Columns\TextColumn::make('pickup_2')->label('Pickup 2'),
+                Tables\Columns\TextColumn::make('date_pickup_2')->label('Tanggal Penjemputan 2')->date(),
+
                 Tables\Columns\TextColumn::make('pickup_3')->label('Pickup 3'),
+                Tables\Columns\TextColumn::make('date_pickup_3')->label('Tanggal Penjemputan 3')->date(),
+
                 Tables\Columns\TextColumn::make('pickup_4')->label('Pickup 4'),
+                Tables\Columns\TextColumn::make('date_pickup_4')->label('Tanggal Penjemputan 4')->date(),
+
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime()->sortable(),
             ])
             ->actions([

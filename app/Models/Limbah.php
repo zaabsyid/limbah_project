@@ -21,7 +21,12 @@ class Limbah extends Model
         'pickup_2',
         'pickup_3',
         'pickup_4',
+        'date_pickup_1',
+        'date_pickup_2',
+        'date_pickup_3',
+        'date_pickup_4',
         'driver_id',
+
         'province_id',
         'city_id',
         'created_at',

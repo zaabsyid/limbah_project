@@ -9,10 +9,12 @@ use App\Models\Customer;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\BillingResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\BillingResource\RelationManagers;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class BillingResource extends Resource
 {
@@ -24,13 +26,19 @@ class BillingResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('customer_id')
+                Forms\Components\Select::make('customer_id')
+                    ->relationship('customer', 'name')
+                    ->label('Customer')
                     ->disabled()
-                    ->label('Customer ID'),
+                    ->required(),
                 Forms\Components\FileUpload::make('document_payment')
                     ->label('Bukti Pembayaran')
                     ->directory('billings/documents')
-                    ->required(),
+                    ->required()
+                    ->preserveFilenames() // Pastikan untuk menyimpan nama file asli
+                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
+                        return $file->getClientOriginalName(); // Menyimpan hanya nama file
+                    }),
                 Forms\Components\Select::make('status')
                     ->options([
                         'putus_kontrak' => 'Putus Kontrak',
@@ -47,7 +55,12 @@ class BillingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('customer.name')->label('Customer'),
+                Tables\Columns\TextColumn::make('customer.email')->label('Customer Email'),
+                Tables\Columns\TextColumn::make('customer.nik')->label('Customer NIK'),
                 Tables\Columns\TextColumn::make('status')->label('Status'),
+                Tables\Columns\TextColumn::make('document_payment')
+                    ->label('Nama File')
+                    ->formatStateUsing(fn($state) => basename($state)),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Tanggal'),
             ])
             ->filters([

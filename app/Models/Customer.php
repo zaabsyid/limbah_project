@@ -53,6 +53,10 @@ class Customer extends Model
                 'pickup_2' => 'belum_dijemput',
                 'pickup_3' => 'belum_dijemput',
                 'pickup_4' => 'belum_dijemput',
+                'date_pickup_1' => now()->addMonth(3), // Tanggal penjemputan pertama adalah hari ini
+                'date_pickup_2' => now()->addMonths(6), // 3 bulan setelah penjemputan pertama
+                'date_pickup_3' => now()->addMonths(9), // 6 bulan setelah penjemputan pertama
+                'date_pickup_4' => now()->addMonths(12),
                 'driver_id' => '1',
                 // tambahkan field lain sesuai dengan kebutuhan Anda
             ]);

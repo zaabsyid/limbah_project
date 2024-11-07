@@ -21,6 +21,10 @@ return new class extends Migration
             $table->enum('pickup_2', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
             $table->enum('pickup_3', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
             $table->enum('pickup_4', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->date('date_pickup_1');
+            $table->date('date_pickup_2');
+            $table->date('date_pickup_3');
+            $table->date('date_pickup_4');
             $table->foreignId('driver_id')->constrained('drivers')->onDelete('cascade')->nullable();
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
