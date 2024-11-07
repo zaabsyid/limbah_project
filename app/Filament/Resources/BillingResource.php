@@ -57,7 +57,22 @@ class BillingResource extends Resource
                 Tables\Columns\TextColumn::make('customer.name')->label('Customer'),
                 Tables\Columns\TextColumn::make('customer.email')->label('Customer Email'),
                 Tables\Columns\TextColumn::make('customer.nik')->label('Customer NIK'),
-                Tables\Columns\TextColumn::make('status')->label('Status'),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->label('Status')
+                    ->colors([
+                        'primary' => 'belum_diperpanjang',  // Warna oren untuk "belum_diperpanjang"
+                        'success' => 'sudah_diperpanjang',  // Warna hijau untuk "sudah_diperpanjang"
+                        'danger' => 'putus_kontrak',        // Warna merah untuk "putus_kontrak"
+                    ])
+                    ->formatStateUsing(function ($state) {
+                        // Menyesuaikan label tampilan status
+                        return match ($state) {
+                            'belum_diperpanjang' => 'Belum Diperpanjang',
+                            'sudah_diperpanjang' => 'Sudah Diperpanjang',
+                            'putus_kontrak' => 'Putus Kontrak',
+                            default => $state,
+                        };
+                    }),
                 Tables\Columns\TextColumn::make('document_payment')
                     ->label('Nama File')
                     ->formatStateUsing(fn($state) => basename($state)),

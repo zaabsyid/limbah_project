@@ -125,15 +125,76 @@ class LimbahResource extends Resource
                 Tables\Columns\TextColumn::make('code_manifest')->label('Kode Manifest'),
                 Tables\Columns\TextColumn::make('weight_limbah')->label('Berat Limbah (kg)'),
                 Tables\Columns\TextColumn::make('driver.name')->label('Driver'),
-                Tables\Columns\TextColumn::make('pickup_1')->label('Pickup 1'),
+                Tables\Columns\BadgeColumn::make('pickup_1')
+                    ->label('Pickup 1')
+                    ->colors([
+                        'primary' => 'belum_dijemput',
+                        'success' => 'sudah_dijemput',
+                        'danger' => 'putus_kontrak',
+                    ])
+                    ->formatStateUsing(function ($state) {
+                        // Menyesuaikan label tampilan status
+                        return match ($state) {
+                            'belum_dijemput' => 'Belum Dijemput',
+                            'sudah_dijemput' => 'Sudah Dijemput',
+                            'putus_kontrak' => 'Putus Kontrak',
+                            default => $state,
+                        };
+                    }),
                 Tables\Columns\TextColumn::make('date_pickup_1')->label('Tanggal Penjemputan 1')->date(),
-                Tables\Columns\TextColumn::make('pickup_2')->label('Pickup 2'),
+
+                Tables\Columns\BadgeColumn::make('pickup_2')
+                    ->label('Pickup 2')
+                    ->colors([
+                        'primary' => 'belum_dijemput',
+                        'success' => 'sudah_dijemput',
+                        'danger' => 'putus_kontrak',
+                    ])
+                    ->formatStateUsing(function ($state) {
+                        // Menyesuaikan label tampilan status
+                        return match ($state) {
+                            'belum_dijemput' => 'Belum Dijemput',
+                            'sudah_dijemput' => 'Sudah Dijemput',
+                            'putus_kontrak' => 'Putus Kontrak',
+                            default => $state,
+                        };
+                    }),
                 Tables\Columns\TextColumn::make('date_pickup_2')->label('Tanggal Penjemputan 2')->date(),
 
-                Tables\Columns\TextColumn::make('pickup_3')->label('Pickup 3'),
+                Tables\Columns\BadgeColumn::make('pickup_3')
+                    ->label('Pickup 3')
+                    ->colors([
+                        'primary' => 'belum_dijemput',
+                        'success' => 'sudah_dijemput',
+                        'danger' => 'putus_kontrak',
+                    ])
+                    ->formatStateUsing(function ($state) {
+                        // Menyesuaikan label tampilan status
+                        return match ($state) {
+                            'belum_dijemput' => 'Belum Dijemput',
+                            'sudah_dijemput' => 'Sudah Dijemput',
+                            'putus_kontrak' => 'Putus Kontrak',
+                            default => $state,
+                        };
+                    }),
                 Tables\Columns\TextColumn::make('date_pickup_3')->label('Tanggal Penjemputan 3')->date(),
 
-                Tables\Columns\TextColumn::make('pickup_4')->label('Pickup 4'),
+                Tables\Columns\BadgeColumn::make('pickup_4')
+                    ->label('Pickup 4')
+                    ->colors([
+                        'primary' => 'belum_dijemput',
+                        'success' => 'sudah_dijemput',
+                        'danger' => 'putus_kontrak',
+                    ])
+                    ->formatStateUsing(function ($state) {
+                        // Menyesuaikan label tampilan status
+                        return match ($state) {
+                            'belum_dijemput' => 'Belum Dijemput',
+                            'sudah_dijemput' => 'Sudah Dijemput',
+                            'putus_kontrak' => 'Putus Kontrak',
+                            default => $state,
+                        };
+                    }),
                 Tables\Columns\TextColumn::make('date_pickup_4')->label('Tanggal Penjemputan 4')->date(),
 
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime()->sortable(),
