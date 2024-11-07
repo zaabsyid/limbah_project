@@ -114,27 +114,7 @@ class MouResource extends Resource
             //                 ->send();
             //         }),
             // ])
-            ->headerActions([
-                Action::make('import')
-                    ->label('Import Excel')
-                    ->icon('heroicon-o-rectangle-stack')
-                    ->form([
-                        Forms\Components\FileUpload::make('file')
-                            ->required()
-                            ->acceptedFileTypes(['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'])
-                    ])
-                    ->action(function (array $data) {
-                        Excel::import(new MousImport, $data['file']);
-                        Notification::make()
-                            ->title('Import berhasil!')
-                            ->success()
-                            ->send();
-                    }),
-                Action::make('export')
-                    ->label('Export Excel')
-                    ->icon('heroicon-o-rectangle-stack')
-                    ->action(fn() => Excel::download(new MousExport, 'Mou.xlsx'))
-            ])
+            ->headerActions([])
             ->columns([
                 Tables\Columns\TextColumn::make('mou_number')->label('MOU Number'),
                 Tables\Columns\TextColumn::make('customer.name')->label('Customer'),

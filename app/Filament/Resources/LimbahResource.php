@@ -5,15 +5,21 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use App\Models\City;
 use Filament\Tables;
+use App\Models\Driver;
 use App\Models\Limbah;
 use App\Models\Province;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\LimbahPerDriverExport;
+use App\Exports\LimbahPerProvinceExport;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\LimbahResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\LimbahResource\RelationManagers;
+
 
 class LimbahResource extends Resource
 {
@@ -135,6 +141,32 @@ class LimbahResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
+            ])
+            ->headerActions([
+                Action::make('Export per Province')
+                    ->form([
+                        Forms\Components\Select::make('province_id')
+                            ->label('Select Province')
+                            ->options(Province::all()->pluck('name', 'id'))
+                            ->required(),
+                    ])
+                    ->action(function (array $data) {
+                        return Excel::download(new LimbahPerProvinceExport($data['province_id']), 'limbah_per_province.xlsx');
+                    })
+                    ->modalHeading('Export Limbah per Province'),
+
+                Action::make('Export per Driver')
+                    ->form([
+                        Forms\Components\Select::make('driver_id')
+                            ->label('Select Driver')
+                            ->options(Driver::all()->pluck('name', 'id'))
+                            ->required(),
+                    ])
+                    ->action(function (array $data) {
+                        return Excel::download(new LimbahPerDriverExport($data['driver_id']), 'limbah_per_driver.xlsx');
+                    })
+                    ->modalHeading('Export Limbah per Driver'),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
