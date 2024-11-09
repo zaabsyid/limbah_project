@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\MouPdfController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,3 +20,6 @@ Route::post('/register', [AuthController::class, 'doRegister']);
 Route::middleware('auth:web')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 });
+
+
+Route::get("download", [MouPdfController::class, 'downloadPdf'])->name('mou.download');
