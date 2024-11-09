@@ -129,7 +129,22 @@ class MouResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime(),
             ])
             ->filters([
-                //
+                // Tables\Filters\SelectFilter::make('contract_period')
+                //     ->label('Contract Period')
+                //     ->options([
+                //         '2' => '2 Years',
+                //         '5' => '5 Years',
+                //     ])
+                //     ->query(function (Builder $query, array $data) {
+                //         return $query->where('contract_period', $data['value']);
+                //     }),
+
+                Tables\Filters\SelectFilter::make('contract_period')
+                    ->label('Contract Period')
+                    ->options([
+                        '2' => '2 Years',
+                        '5' => '5 Years',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

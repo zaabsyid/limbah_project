@@ -77,7 +77,13 @@ class PerpanjanganMouResource extends Resource
                 //     ->label('Notifikasi Terkirim'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('contract_period')
+                    ->label('Periode Kontrak')
+                    ->relationship('mou', 'contract_period')
+                    ->options([
+                        '2' => '2 Tahun',
+                        '5' => '5 Tahun',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
