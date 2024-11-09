@@ -36,7 +36,6 @@ class BillingResource extends Resource
                 Forms\Components\FileUpload::make('document_payment')
                     ->label('Bukti Pembayaran')
                     ->directory('billings/documents')
-                    ->required()
                     ->preserveFilenames() // Pastikan untuk menyimpan nama file asli
                     ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
                         return $file->getClientOriginalName(); // Menyimpan hanya nama file
@@ -63,14 +62,14 @@ class BillingResource extends Resource
                     ->label('Status')
                     ->colors([
                         'primary' => 'belum_diperpanjang',  // Warna oren untuk "belum_diperpanjang"
-                        'success' => 'sudah_diperpanjang',  // Warna hijau untuk "sudah_diperpanjang"
+                        'success' => 'sudah_perpanjang',  // Warna hijau untuk "sudah_diperpanjang"
                         'danger' => 'putus_kontrak',        // Warna merah untuk "putus_kontrak"
                     ])
                     ->formatStateUsing(function ($state) {
                         // Menyesuaikan label tampilan status
                         return match ($state) {
                             'belum_diperpanjang' => 'Belum Diperpanjang',
-                            'sudah_diperpanjang' => 'Sudah Diperpanjang',
+                            'sudah_perpanjang' => 'Sudah Diperpanjang',
                             'putus_kontrak' => 'Putus Kontrak',
                             default => $state,
                         };
