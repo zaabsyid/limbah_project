@@ -120,7 +120,22 @@ class MouResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('mou_number')->label('MOU Number'),
                 Tables\Columns\TextColumn::make('customer.name')->label('Customer'),
-                Tables\Columns\TextColumn::make('status')->label('Status Mou'),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->label('Status Mou')
+                    ->colors([
+                        'primary' => 'belum_diperpanjang',  // Warna oren untuk "belum_diperpanjang"
+                        'success' => 'sudah_diperpanjang',  // Warna hijau untuk "sudah_diperpanjang"
+                        'danger' => 'putus_kontrak',        // Warna merah untuk "putus_kontrak"
+                    ])
+                    ->formatStateUsing(function ($state) {
+                        // Menyesuaikan label tampilan status
+                        return match ($state) {
+                            'belum_diperpanjang' => 'Belum Diperpanjang',
+                            'sudah_diperpanjang' => 'Sudah Diperpanjang',
+                            'putus_kontrak' => 'Putus Kontrak',
+                            default => $state,
+                        };
+                    }),
                 Tables\Columns\TextColumn::make('mou_status_file')->label('Status File'),
                 Tables\Columns\TextColumn::make('province.name')->label('Province'),
                 Tables\Columns\TextColumn::make('city.name')->label('City'),

@@ -49,7 +49,20 @@ class RenewalsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('year')->label('Tahun'),
                 Tables\Columns\TextColumn::make('due_date')->label('Tanggal Jatuh Tempo')->date(),
-                Tables\Columns\TextColumn::make('status')->label('Status'),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->label('Status')
+                    ->colors([
+                        'orange' => 'belum_dibayar',
+                        'green' => 'sudah_dibayar',
+                    ])
+                    ->formatStateUsing(function ($state) {
+                        // Menyesuaikan label tampilan status
+                        return match ($state) {
+                            'orange' => 'Belum Dibayar',
+                            'green' => 'Sudah DIbayar',
+                            default => $state,
+                        };
+                    }),
                 Tables\Columns\TextColumn::make('document_payment')
                     ->label('Dokumen Pembayaran')
                     ->formatStateUsing(fn($state) => $state ? basename($state) : 'N/A')
