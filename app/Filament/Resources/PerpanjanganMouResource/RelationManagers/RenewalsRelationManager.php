@@ -29,13 +29,13 @@ class RenewalsRelationManager extends RelationManager
                 Forms\Components\DatePicker::make('due_date')
                     ->label('Tanggal Jatuh Tempo')
                     ->required(),
-                Forms\Components\Select::make('status')
-                    ->label('Status')
-                    ->options([
-                        'orange' => 'Belum Dibayar',
-                        'green' => 'Sudah Dibayar',
-                    ])
-                    ->required(),
+                // Forms\Components\Select::make('status')
+                //     ->label('Status')
+                //     ->options([
+                //         'orange' => 'Belum Dibayar',
+                //         'green' => 'Sudah Dibayar',
+                //     ])
+                //     ->required(),
                 Forms\Components\FileUpload::make('document_payment')
                     ->label('Bukti Pembayaran')
                     ->directory('renewals/documents'),
@@ -52,14 +52,14 @@ class RenewalsRelationManager extends RelationManager
                 Tables\Columns\BadgeColumn::make('status')
                     ->label('Status')
                     ->colors([
-                        'orange' => 'belum_dibayar',
-                        'green' => 'sudah_dibayar',
+                        'primary' => 'belum_dibayar',
+                        'success' => 'sudah_dibayar',
                     ])
                     ->formatStateUsing(function ($state) {
                         // Menyesuaikan label tampilan status
                         return match ($state) {
-                            'orange' => 'Belum Dibayar',
-                            'green' => 'Sudah DIbayar',
+                            'belum_dibayar' => 'Belum Dibayar',
+                            'sudah_dibayar' => 'Sudah Dibayar',
                             default => $state,
                         };
                     }),

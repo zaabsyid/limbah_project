@@ -12,4 +12,14 @@ class Billing extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    protected static function booted()
+    {
+        static::saving(function ($billing) {
+            // Cek apakah document_payment diunggah dan status belum diperpanjang
+            if ($billing->document_payment && $billing->status === 'belum_diperpanjang') {
+                $billing->status = 'sudah_perpanjang';
+            }
+        });
+    }
 }

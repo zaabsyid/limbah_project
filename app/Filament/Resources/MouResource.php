@@ -73,14 +73,14 @@ class MouResource extends Resource
                         'file' => 'File',
                     ])
                     ->required(),
-                Forms\Components\Select::make('status')
-                    ->label('MOU Status')
-                    ->options([
-                        'putus_kontrak' => 'Putus Kontrak',
-                        'sudah_perpanjang' => 'Sudah Diperpanjang',
-                        'belum_diperpanjang' => 'Belum Diperpanjang',
-                    ])
-                    ->required(),
+                // Forms\Components\Select::make('status')
+                //     ->label('MOU Status')
+                //     ->options([
+                //         'putus_kontrak' => 'Putus Kontrak',
+                //         'sudah_perpanjang' => 'Sudah Diperpanjang',
+                //         'belum_diperpanjang' => 'Belum Diperpanjang',
+                //     ])
+                //     ->required(),
                 Forms\Components\FileUpload::make('customer_materai_1')
                     ->label('Customer Materai 1')
                     ->directory('mous/materai')
@@ -124,14 +124,14 @@ class MouResource extends Resource
                     ->label('Status Mou')
                     ->colors([
                         'primary' => 'belum_diperpanjang',  // Warna oren untuk "belum_diperpanjang"
-                        'success' => 'sudah_diperpanjang',  // Warna hijau untuk "sudah_diperpanjang"
+                        'success' => 'sudah_perpanjang',  // Warna hijau untuk "sudah_diperpanjang"
                         'danger' => 'putus_kontrak',        // Warna merah untuk "putus_kontrak"
                     ])
                     ->formatStateUsing(function ($state) {
                         // Menyesuaikan label tampilan status
                         return match ($state) {
                             'belum_diperpanjang' => 'Belum Diperpanjang',
-                            'sudah_diperpanjang' => 'Sudah Diperpanjang',
+                            'sudah_perpanjang' => 'Sudah Diperpanjang',
                             'putus_kontrak' => 'Putus Kontrak',
                             default => $state,
                         };

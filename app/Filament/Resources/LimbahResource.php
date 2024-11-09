@@ -56,6 +56,7 @@ class LimbahResource extends Resource
                     ->options([
                         'belum_dijemput' => 'Belum Dijemput',
                         'sudah_dijemput' => 'Sudah Dijemput',
+                        'siap_dijemput' => 'Siap Dijemput',
                         'putus_kontrak' => 'Putus Kontrak',
                     ])
                     ->label('Pickup 1')
@@ -67,6 +68,7 @@ class LimbahResource extends Resource
                     ->options([
                         'belum_dijemput' => 'Belum Dijemput',
                         'sudah_dijemput' => 'Sudah Dijemput',
+                        'siap_dijemput' => 'Siap Dijemput',
                         'putus_kontrak' => 'Putus Kontrak',
                     ])
                     ->label('Pickup 2')
@@ -78,6 +80,7 @@ class LimbahResource extends Resource
                     ->options([
                         'belum_dijemput' => 'Belum Dijemput',
                         'sudah_dijemput' => 'Sudah Dijemput',
+                        'siap_dijemput' => 'Siap Dijemput',
                         'putus_kontrak' => 'Putus Kontrak',
                     ])
                     ->label('Pickup 3')
@@ -89,12 +92,13 @@ class LimbahResource extends Resource
                     ->options([
                         'belum_dijemput' => 'Belum Dijemput',
                         'sudah_dijemput' => 'Sudah Dijemput',
+                        'siap_dijemput' => 'Siap Dijemput',
                         'putus_kontrak' => 'Putus Kontrak',
                     ])
                     ->label('Pickup 4')
                     ->default('belum_dijemput'),
-                Forms\Components\DatePicker::make('date_pickup_3')
-                    ->label('Tanggal Penjemputan 3')
+                Forms\Components\DatePicker::make('date_pickup_4')
+                    ->label('Tanggal Penjemputan 4')
                     ->required(),
                 // Forms\Components\Repeater::make('pickups')
                 //     ->schema([
@@ -133,6 +137,7 @@ class LimbahResource extends Resource
                     ->label('Pickup 1')
                     ->colors([
                         'primary' => 'belum_dijemput',
+                        'success' => 'siap_dijemput',
                         'success' => 'sudah_dijemput',
                         'danger' => 'putus_kontrak',
                     ])
@@ -140,6 +145,7 @@ class LimbahResource extends Resource
                         // Menyesuaikan label tampilan status
                         return match ($state) {
                             'belum_dijemput' => 'Belum Dijemput',
+                            'siap_dijemput' => 'Siap Dijemput',
                             'sudah_dijemput' => 'Sudah Dijemput',
                             'putus_kontrak' => 'Putus Kontrak',
                             default => $state,
@@ -151,6 +157,7 @@ class LimbahResource extends Resource
                     ->label('Pickup 2')
                     ->colors([
                         'primary' => 'belum_dijemput',
+                        'success' => 'siap_dijemput',
                         'success' => 'sudah_dijemput',
                         'danger' => 'putus_kontrak',
                     ])
@@ -158,6 +165,7 @@ class LimbahResource extends Resource
                         // Menyesuaikan label tampilan status
                         return match ($state) {
                             'belum_dijemput' => 'Belum Dijemput',
+                            'success' => 'siap_dijemput',
                             'sudah_dijemput' => 'Sudah Dijemput',
                             'putus_kontrak' => 'Putus Kontrak',
                             default => $state,
@@ -169,6 +177,7 @@ class LimbahResource extends Resource
                     ->label('Pickup 3')
                     ->colors([
                         'primary' => 'belum_dijemput',
+                        'success' => 'siap_dijemput',
                         'success' => 'sudah_dijemput',
                         'danger' => 'putus_kontrak',
                     ])
@@ -176,6 +185,7 @@ class LimbahResource extends Resource
                         // Menyesuaikan label tampilan status
                         return match ($state) {
                             'belum_dijemput' => 'Belum Dijemput',
+                            'siap_dijemput' => 'Siap Dijemput',
                             'sudah_dijemput' => 'Sudah Dijemput',
                             'putus_kontrak' => 'Putus Kontrak',
                             default => $state,
@@ -187,6 +197,7 @@ class LimbahResource extends Resource
                     ->label('Pickup 4')
                     ->colors([
                         'primary' => 'belum_dijemput',
+                        'success' => 'siap_dijemput',
                         'success' => 'sudah_dijemput',
                         'danger' => 'putus_kontrak',
                     ])
@@ -194,6 +205,7 @@ class LimbahResource extends Resource
                         // Menyesuaikan label tampilan status
                         return match ($state) {
                             'belum_dijemput' => 'Belum Dijemput',
+                            'siap_dijemput' => 'Siap Dijemput',
                             'sudah_dijemput' => 'Sudah Dijemput',
                             'putus_kontrak' => 'Putus Kontrak',
                             default => $state,

@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('code_manifest')->nullable();
             $table->string('document_manifest')->nullable();
             $table->integer('weight_limbah')->nullable();
-            $table->enum('pickup_1', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
-            $table->enum('pickup_2', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
-            $table->enum('pickup_3', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
-            $table->enum('pickup_4', ['belum_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->enum('pickup_1', ['belum_dijemput', 'siap_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->enum('pickup_2', ['belum_dijemput', 'siap_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->enum('pickup_3', ['belum_dijemput', 'siap_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->enum('pickup_4', ['belum_dijemput', 'siap_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
             $table->date('date_pickup_1');
             $table->date('date_pickup_2');
             $table->date('date_pickup_3');

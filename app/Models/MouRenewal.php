@@ -35,6 +35,16 @@ class MouRenewal extends Model
         ]);
     }
 
+    protected static function booted()
+    {
+        static::saving(function ($mouRenewal) {
+            // Cek apakah code, document manifest, weight limbah diunggah dan status pickup belum_dijemput
+            if ($mouRenewal->document_payment && $mouRenewal->status === 'belum_dibayar') {
+                $mouRenewal->status = 'sudah_dibayar';
+            }
+        });
+    }
+
     /**
      * Cek jika renewal mendekati jatuh tempo dan belum dibayar, lalu kirim notifikasi
      */

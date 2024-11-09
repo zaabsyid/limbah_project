@@ -49,7 +49,7 @@ class CustomerResource extends Resource
                     ->label('Occupation'),
                 Forms\Components\Grid::make(3)
                     ->schema([
-                        Forms\Components\TextInput::make('nik')->required(),
+                        Forms\Components\TextInput::make('nik')->required()->label('NIK'),
                         Forms\Components\FileUpload::make('ktp_image')->label('Upload KTP')->directory('customers/ktp')->required(),
                         Forms\Components\TextInput::make('str_sip')->label('STP/SIR')->required(),
                         Forms\Components\FileUpload::make('str_sip_image')->label('Upload STP/SIR')->directory('customers/stp_sir')->required(),

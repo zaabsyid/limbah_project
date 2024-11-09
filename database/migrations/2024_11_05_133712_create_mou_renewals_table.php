@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('perpanjangan_mou_id')->constrained('perpanjangan_mous')->onDelete('cascade');
             $table->integer('year'); // Tahun perpanjangan (1 hingga 5)
-            $table->enum('status', ['orange', 'green'])->default('orange'); // Status pembayaran
+            $table->enum('status', ['belum_dibayar', 'sudah_dibayar'])->default('belum_dibayar'); // Status pembayaran
             $table->date('due_date'); // Tanggal jatuh tempo untuk setiap tahun
             $table->string('document_payment')->nullable(); // Bukti pembayaran
             $table->timestamps();

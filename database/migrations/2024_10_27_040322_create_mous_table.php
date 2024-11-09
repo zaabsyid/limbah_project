@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('customer_image_2')->nullable();
             $table->string('customer_materai_1')->nullable();
             $table->string('customer_materai_2')->nullable();
-            $table->enum('status', ['putus_kontrak', 'sudah_perpanjang', 'belum_diperpanjang'])->default('belum_diperpanjang');
+            // $table->enum('status', ['putus_kontrak', 'sudah_perpanjang', 'belum_diperpanjang'])->default('belum_diperpanjang');
             $table->enum('mou_status_file', ['draft', 'file'])->default('draft');
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');

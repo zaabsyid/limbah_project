@@ -52,18 +52,31 @@ class Limbah extends Model
         return $this->belongsTo(Driver::class);
     }
 
-    public function isPending()
+    protected static function booted()
     {
-        return $this->status === 'pending';
+        static::saving(function ($limbah) {
+            // Cek apakah code, document manifest, weight limbah diunggah dan status pickup belum_dijemput
+            if ($limbah->code_manifest && $limbah->document_manifest && $limbah->weight_limbah && $limbah->pickup_1 === 'belum_dijemput' && $limbah->pickup_2 === 'belum_dijemput' && $limbah->pickup_3 === 'belum_dijemput' && $limbah->pickup_4 === 'belum_dijemput') {
+                $limbah->pickup_1 = 'siap_dijemput';
+                $limbah->pickup_2 = 'siap_dijemput';
+                $limbah->pickup_3 = 'siap_dijemput';
+                $limbah->pickup_4 = 'siap_dijemput';
+            }
+        });
     }
 
-    public function isPickedUp()
-    {
-        return $this->status === 'picked_up';
-    }
+    // public function isPending()
+    // {
+    //     return $this->status === 'pending';
+    // }
 
-    public function isTerminated()
-    {
-        return $this->status === 'terminated';
-    }
+    // public function isPickedUp()
+    // {
+    //     return $this->status === 'picked_up';
+    // }
+
+    // public function isTerminated()
+    // {
+    //     return $this->status === 'terminated';
+    // }
 }

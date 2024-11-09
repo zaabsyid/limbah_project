@@ -40,14 +40,14 @@ class BillingResource extends Resource
                     ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file) {
                         return $file->getClientOriginalName(); // Menyimpan hanya nama file
                     }),
-                Forms\Components\Select::make('status')
-                    ->options([
-                        'putus_kontrak' => 'Putus Kontrak',
-                        'sudah_perpanjang' => 'Sudah Perpanjang',
-                        'belum_diperpanjang' => 'Belum Diperpanjang',
-                    ])
-                    ->required()
-                    ->label('Status'),
+                // Forms\Components\Select::make('status')
+                //     ->options([
+                //         'putus_kontrak' => 'Putus Kontrak',
+                //         'sudah_perpanjang' => 'Sudah Perpanjang',
+                //         'belum_diperpanjang' => 'Belum Diperpanjang',
+                //     ])
+                //     ->required()
+                //     ->label('Status'),
             ]);
     }
 

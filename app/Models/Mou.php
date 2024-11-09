@@ -20,7 +20,7 @@ class Mou extends Model
         'customer_id',
         'customer_materai_1',
         'customer_materai_2',
-        'status',
+        // 'status',
         'mou_status_file',
         'province_id',
         'city_id',
@@ -53,7 +53,7 @@ class Mou extends Model
                     $perpanjanganMou->renewals()->create([
                         'year' => $i,
                         'due_date' => $mou->created_at->addYears($i), // Set jatuh tempo per tahun
-                        'status' => 'orange', // Status default sebagai belum bayar
+                        'status' => 'belum_dibayar', // Status default sebagai belum bayar
                     ]);
                 }
             }
