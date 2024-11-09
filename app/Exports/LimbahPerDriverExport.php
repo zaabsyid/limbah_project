@@ -3,12 +3,17 @@
 namespace App\Exports;
 
 use App\Models\Limbah;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Carbon\Carbon;
 
-class LimbahPerDriverExport implements FromQuery, WithMapping, WithHeadings
+class LimbahPerDriverExport implements FromQuery, WithMapping, WithHeadings, WithStyles, ShouldAutoSize, WithColumnFormatting
 {
     protected $driverId;
 
@@ -27,20 +32,20 @@ class LimbahPerDriverExport implements FromQuery, WithMapping, WithHeadings
         return [
             $limbah->customer->name,
             $limbah->code_manifest,
-            $limbah->document_manifest,
+            basename($limbah->document_manifest), // Display only the file name
             $limbah->weight_limbah,
             $limbah->pickup_1,
             $limbah->pickup_2,
             $limbah->pickup_3,
             $limbah->pickup_4,
-            $limbah->date_pickup_1,
-            $limbah->date_pickup_2,
-            $limbah->date_pickup_3,
-            $limbah->date_pickup_4,
+            optional($limbah->date_pickup_1)->format('d-m-Y'),
+            optional($limbah->date_pickup_2)->format('d-m-Y'),
+            optional($limbah->date_pickup_3)->format('d-m-Y'),
+            optional($limbah->date_pickup_4)->format('d-m-Y'),
             $limbah->driver->name,
             $limbah->province->name,
             $limbah->city->name,
-            $limbah->created_at,
+            Carbon::parse($limbah->created_at)->format('d-m-Y'),
         ];
     }
 
@@ -50,7 +55,7 @@ class LimbahPerDriverExport implements FromQuery, WithMapping, WithHeadings
             'Customer Name',
             'Code Manifest',
             'Document Manifest',
-            'Weight',
+            'Weight (kg)',
             'Pickup 1',
             'Pickup 2',
             'Pickup 3',
@@ -63,6 +68,39 @@ class LimbahPerDriverExport implements FromQuery, WithMapping, WithHeadings
             'Province',
             'City',
             'Created At',
+        ];
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        // Freeze the header row
+        $sheet->freezePane('A2');
+
+        // Style the header row
+        $sheet->getStyle('A1:P1')->applyFromArray([
+            'font' => [
+                'bold' => true,
+                'color' => ['argb' => 'FFFFFF'],
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => ['argb' => '4CAF50'],
+            ],
+        ]);
+
+        return [
+            'A1:P1' => ['font' => ['bold' => true]], // Apply bold font to header
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'I' => NumberFormat::FORMAT_DATE_DDMMYYYY, // Date Pickup 1
+            'J' => NumberFormat::FORMAT_DATE_DDMMYYYY, // Date Pickup 2
+            'K' => NumberFormat::FORMAT_DATE_DDMMYYYY, // Date Pickup 3
+            'L' => NumberFormat::FORMAT_DATE_DDMMYYYY, // Date Pickup 4
+            'P' => NumberFormat::FORMAT_DATE_DDMMYYYY, // Created At
         ];
     }
 }
