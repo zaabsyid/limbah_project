@@ -31,6 +31,8 @@ class MouResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $pluralLabel = 'MoU';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -61,9 +63,9 @@ class MouResource extends Resource
                         '5' => '5 Years',
                     ])
                     ->required(),
-                Forms\Components\DatePicker::make('contract_end_date')
-                    ->label('Contract End Date')
-                    ->required(),
+                // Forms\Components\DatePicker::make('contract_end_date')
+                //     ->label('Contract End Date')
+                //     ->required(),
                 Forms\Components\Select::make('mou_status_file')
                     ->label('MOU Status File')
                     ->options([

@@ -8,26 +8,45 @@ class PerpanjanganMou extends Model
 {
     protected $fillable = [
         'mou_id',
-        'customer_id',
-        'package',
         'notified',
     ];
 
-    protected static function booted()
+    public function mou()
     {
-        static::created(function ($mou) {
-            if ($mou->package == '5') {
-                // Membuat perpanjangan tahunan untuk paket 5 tahun
-                for ($i = 1; $i <= 5; $i++) {
-                    $mou->renewals()->create([
-                        'year' => $i,
-                        'due_date' => $mou->created_at->addYears($i), // Set jatuh tempo per tahun
-                        'status' => 'orange', // Status default sebagai belum bayar
-                    ]);
-                }
-            }
-        });
+        return $this->belongsTo(Mou::class, 'mou_id');
     }
+
+    /**
+     * Akses `contract_period` dari relasi `mou`
+     */
+    public function getContractPeriodAttribute()
+    {
+        return $this->mou->contract_period;
+    }
+
+    /**
+     * Akses `customer` melalui `mou`
+     */
+    public function customer()
+    {
+        return $this->mou->customer;
+    }
+
+    // protected static function booted()
+    // {
+    //     static::created(function ($mou) {
+    //         if ($mou->package == '5') {
+    //             // Membuat perpanjangan tahunan untuk paket 5 tahun
+    //             for ($i = 1; $i <= 5; $i++) {
+    //                 $mou->renewals()->create([
+    //                     'year' => $i,
+    //                     'due_date' => $mou->created_at->addYears($i), // Set jatuh tempo per tahun
+    //                     'status' => 'orange', // Status default sebagai belum bayar
+    //                 ]);
+    //             }
+    //         }
+    //     });
+    // }
 
     /**
      * Relasi dengan model MouRenewal

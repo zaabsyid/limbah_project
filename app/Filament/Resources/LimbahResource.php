@@ -27,6 +27,8 @@ class LimbahResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $pluralLabel = 'Limbah';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -121,7 +123,9 @@ class LimbahResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer.name')->label('Customer'),
+                Tables\Columns\TextColumn::make('customer.name')->label('Customer Name'),
+                Tables\Columns\TextColumn::make('customer.email')->label('Customer Email'),
+                Tables\Columns\TextColumn::make('customer.nik')->label('Customer NIK'),
                 Tables\Columns\TextColumn::make('code_manifest')->label('Kode Manifest'),
                 Tables\Columns\TextColumn::make('weight_limbah')->label('Berat Limbah (kg)'),
                 Tables\Columns\TextColumn::make('driver.name')->label('Driver'),

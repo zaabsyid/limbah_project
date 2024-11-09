@@ -30,6 +30,44 @@ class Mou extends Model
         'deleted_at'
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($mou) {
+            // Tentukan contract_end_date berdasarkan contract_period
+            $yearsToAdd = $mou->contract_period == '5' ? 5 : 2;
+            $mou->contract_end_date = now()->addYears($yearsToAdd);
+        });
+
+        static::created(function ($mou) {
+            // Buat instance PerpanjanganMou secara otomatis
+            PerpanjanganMou::create([
+                'mou_id' => $mou->id,
+                'notified' => false,
+            ]);
+
+            // Jika paket adalah 5 tahun, buat perpanjangan tahunan secara otomatis
+            if ($mou->contract_period == '5') {
+                $perpanjanganMou = PerpanjanganMou::where('mou_id', $mou->id)->first();
+
+                for ($i = 1; $i <= 5; $i++) {
+                    $perpanjanganMou->renewals()->create([
+                        'year' => $i,
+                        'due_date' => $mou->created_at->addYears($i), // Set jatuh tempo per tahun
+                        'status' => 'orange', // Status default sebagai belum bayar
+                    ]);
+                }
+            }
+        });
+    }
+
+    /**
+     * Relasi ke model PerpanjanganMou
+     */
+    public function perpanjangan()
+    {
+        return $this->hasOne(PerpanjanganMou::class);
+    }
+
     /**
      * Define the relationship with the Customer model.
      */

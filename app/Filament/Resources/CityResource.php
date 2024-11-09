@@ -20,6 +20,8 @@ class CityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $pluralLabel = 'Kota';
+
     public static function form(Form $form): Form
     {
         return $form

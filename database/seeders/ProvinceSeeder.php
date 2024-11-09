@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Province;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ProvinceSeeder extends Seeder
 {
@@ -21,7 +20,30 @@ class ProvinceSeeder extends Seeder
             ['name' => 'West Java'],
             ['name' => 'Central Java'],
             ['name' => 'East Java'],
-            // Add more provinces as needed
+            ['name' => 'Yogyakarta'],
+            ['name' => 'West Sumatra'],
+            ['name' => 'North Sumatra'],
+            ['name' => 'South Sumatra'],
+            ['name' => 'Lampung'],
+            ['name' => 'Riau'],
+            ['name' => 'Riau Islands'],
+            ['name' => 'East Kalimantan'],
+            ['name' => 'South Kalimantan'],
+            ['name' => 'Central Kalimantan'],
+            ['name' => 'West Kalimantan'],
+            ['name' => 'North Kalimantan'],
+            ['name' => 'West Sulawesi'],
+            ['name' => 'South Sulawesi'],
+            ['name' => 'Central Sulawesi'],
+            ['name' => 'Southeast Sulawesi'],
+            ['name' => 'North Sulawesi'],
+            ['name' => 'Maluku'],
+            ['name' => 'North Maluku'],
+            ['name' => 'West Papua'],
+            ['name' => 'Papua'],
+            ['name' => 'Bengkulu'],
+            ['name' => 'Jambi'],
+            ['name' => 'Bangka Belitung'],
         ];
 
         foreach ($provinces as $province) {

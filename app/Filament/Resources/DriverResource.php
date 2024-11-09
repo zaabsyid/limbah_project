@@ -19,6 +19,8 @@ class DriverResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $pluralLabel = 'Driver';
+
     public static function form(Form $form): Form
     {
         return $form
