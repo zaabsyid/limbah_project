@@ -23,6 +23,8 @@ class CustomerResource extends Resource
 
     protected static ?string $pluralLabel = 'Customer';
 
+    protected static ?int $navigationSort = -2; // Semakin kecil semakin atas
+
     public static function form(Form $form): Form
     {
         return $form

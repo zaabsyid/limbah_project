@@ -47,7 +47,7 @@ class CityResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('province_id')->label('Province')->relationship('province', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
