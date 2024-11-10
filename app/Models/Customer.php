@@ -45,21 +45,21 @@ class Customer extends Model
         });
 
         static::created(function ($customer) {
-            Limbah::create([
+            $limbah = Limbah::create([
                 'customer_id' => $customer->id,
                 'province_id' => $customer->province_id,
                 'city_id' => $customer->city_id,
-                'pickup_1' => 'belum_dijemput',
-                'pickup_2' => 'belum_dijemput',
-                'pickup_3' => 'belum_dijemput',
-                'pickup_4' => 'belum_dijemput',
-                'date_pickup_1' => now()->addMonth(3), // Tanggal penjemputan pertama adalah hari ini
-                'date_pickup_2' => now()->addMonths(6), // 3 bulan setelah penjemputan pertama
-                'date_pickup_3' => now()->addMonths(9), // 6 bulan setelah penjemputan pertama
-                'date_pickup_4' => now()->addMonths(12),
                 'driver_id' => '1',
                 // tambahkan field lain sesuai dengan kebutuhan Anda
             ]);
+
+            for ($i = 1; $i <= 4; $i++) {
+                PenjemputanLimbah::create([
+                    'limbah_id' => $limbah->id,
+                    'pickup' => 'belum_dijemput',
+                    'date_pickup' => now()->addMonths($i * 3), // Setiap 3 bulan untuk setiap periode
+                ]);
+            }
         });
     }
 

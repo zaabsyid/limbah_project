@@ -14,17 +14,6 @@ class Limbah extends Model
 
     protected $fillable = [
         'customer_id',
-        'code_manifest',
-        'document_manifest',
-        'weight_limbah',
-        'pickup_1',
-        'pickup_2',
-        'pickup_3',
-        'pickup_4',
-        'date_pickup_1',
-        'date_pickup_2',
-        'date_pickup_3',
-        'date_pickup_4',
         'driver_id',
         'province_id',
         'city_id',
@@ -52,17 +41,9 @@ class Limbah extends Model
         return $this->belongsTo(Driver::class);
     }
 
-    protected static function booted()
+    public function penjemputanLimbah()
     {
-        static::saving(function ($limbah) {
-            // Cek apakah code, document manifest, weight limbah diunggah dan status pickup belum_dijemput
-            if ($limbah->code_manifest && $limbah->document_manifest && $limbah->weight_limbah && $limbah->pickup_1 === 'belum_dijemput' && $limbah->pickup_2 === 'belum_dijemput' && $limbah->pickup_3 === 'belum_dijemput' && $limbah->pickup_4 === 'belum_dijemput') {
-                $limbah->pickup_1 = 'siap_dijemput';
-                $limbah->pickup_2 = 'siap_dijemput';
-                $limbah->pickup_3 = 'siap_dijemput';
-                $limbah->pickup_4 = 'siap_dijemput';
-            }
-        });
+        return $this->hasMany(PenjemputanLimbah::class);
     }
 
     // public function isPending()

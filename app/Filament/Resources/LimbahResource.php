@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\LimbahResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\LimbahResource\RelationManagers;
-
+use App\Filament\Resources\LimbahResource\RelationManagers\PenjemputanLimbahRelationManager;
 
 class LimbahResource extends Resource
 {
@@ -37,68 +37,9 @@ class LimbahResource extends Resource
                     ->relationship('customer', 'name')
                     ->label('Customer')
                     ->required(),
-                Forms\Components\TextInput::make('code_manifest')
-                    ->label('Kode Manifest')
-                    ->required(),
-                Forms\Components\FileUpload::make('document_manifest')
-                    ->label('Dokumen Manifest')
-                    ->directory('limbahs/manifests')
-                    ->required(),
-                Forms\Components\TextInput::make('weight_limbah')
-                    ->label('Berat Limbah')
-                    ->numeric()
-                    ->required(),
                 Forms\Components\Select::make('driver_id')
                     ->relationship('driver', 'name')
                     ->label('Driver')
-                    ->required(),
-                Forms\Components\Radio::make('pickup_1')
-                    ->options([
-                        'belum_dijemput' => 'Belum Dijemput',
-                        'sudah_dijemput' => 'Sudah Dijemput',
-                        'siap_dijemput' => 'Siap Dijemput',
-                        'putus_kontrak' => 'Putus Kontrak',
-                    ])
-                    ->label('Pickup 1')
-                    ->default('belum_dijemput'),
-                Forms\Components\DatePicker::make('date_pickup_1')
-                    ->label('Tanggal Penjemputan 1')
-                    ->required(),
-                Forms\Components\Radio::make('pickup_2')
-                    ->options([
-                        'belum_dijemput' => 'Belum Dijemput',
-                        'sudah_dijemput' => 'Sudah Dijemput',
-                        'siap_dijemput' => 'Siap Dijemput',
-                        'putus_kontrak' => 'Putus Kontrak',
-                    ])
-                    ->label('Pickup 2')
-                    ->default('belum_dijemput'),
-                Forms\Components\DatePicker::make('date_pickup_2')
-                    ->label('Tanggal Penjemputan 2')
-                    ->required(),
-                Forms\Components\Radio::make('pickup_3')
-                    ->options([
-                        'belum_dijemput' => 'Belum Dijemput',
-                        'sudah_dijemput' => 'Sudah Dijemput',
-                        'siap_dijemput' => 'Siap Dijemput',
-                        'putus_kontrak' => 'Putus Kontrak',
-                    ])
-                    ->label('Pickup 3')
-                    ->default('belum_dijemput'),
-                Forms\Components\DatePicker::make('date_pickup_3')
-                    ->label('Tanggal Penjemputan 3')
-                    ->required(),
-                Forms\Components\Radio::make('pickup_4')
-                    ->options([
-                        'belum_dijemput' => 'Belum Dijemput',
-                        'sudah_dijemput' => 'Sudah Dijemput',
-                        'siap_dijemput' => 'Siap Dijemput',
-                        'putus_kontrak' => 'Putus Kontrak',
-                    ])
-                    ->label('Pickup 4')
-                    ->default('belum_dijemput'),
-                Forms\Components\DatePicker::make('date_pickup_4')
-                    ->label('Tanggal Penjemputan 4')
                     ->required(),
                 // Forms\Components\Repeater::make('pickups')
                 //     ->schema([
@@ -130,89 +71,7 @@ class LimbahResource extends Resource
                 Tables\Columns\TextColumn::make('customer.name')->label('Customer Name'),
                 Tables\Columns\TextColumn::make('customer.email')->label('Customer Email'),
                 Tables\Columns\TextColumn::make('customer.nik')->label('Customer NIK'),
-                Tables\Columns\TextColumn::make('code_manifest')->label('Kode Manifest'),
-                Tables\Columns\TextColumn::make('weight_limbah')->label('Berat Limbah (kg)'),
                 Tables\Columns\TextColumn::make('driver.name')->label('Driver'),
-                Tables\Columns\BadgeColumn::make('pickup_1')
-                    ->label('Pickup 1')
-                    ->colors([
-                        'primary' => 'belum_dijemput',
-                        'success' => 'siap_dijemput',
-                        'success' => 'sudah_dijemput',
-                        'danger' => 'putus_kontrak',
-                    ])
-                    ->formatStateUsing(function ($state) {
-                        // Menyesuaikan label tampilan status
-                        return match ($state) {
-                            'belum_dijemput' => 'Belum Dijemput',
-                            'siap_dijemput' => 'Siap Dijemput',
-                            'sudah_dijemput' => 'Sudah Dijemput',
-                            'putus_kontrak' => 'Putus Kontrak',
-                            default => $state,
-                        };
-                    }),
-                Tables\Columns\TextColumn::make('date_pickup_1')->label('Tanggal Penjemputan 1')->date(),
-
-                Tables\Columns\BadgeColumn::make('pickup_2')
-                    ->label('Pickup 2')
-                    ->colors([
-                        'primary' => 'belum_dijemput',
-                        'success' => 'siap_dijemput',
-                        'success' => 'sudah_dijemput',
-                        'danger' => 'putus_kontrak',
-                    ])
-                    ->formatStateUsing(function ($state) {
-                        // Menyesuaikan label tampilan status
-                        return match ($state) {
-                            'belum_dijemput' => 'Belum Dijemput',
-                            'success' => 'siap_dijemput',
-                            'sudah_dijemput' => 'Sudah Dijemput',
-                            'putus_kontrak' => 'Putus Kontrak',
-                            default => $state,
-                        };
-                    }),
-                Tables\Columns\TextColumn::make('date_pickup_2')->label('Tanggal Penjemputan 2')->date(),
-
-                Tables\Columns\BadgeColumn::make('pickup_3')
-                    ->label('Pickup 3')
-                    ->colors([
-                        'primary' => 'belum_dijemput',
-                        'success' => 'siap_dijemput',
-                        'success' => 'sudah_dijemput',
-                        'danger' => 'putus_kontrak',
-                    ])
-                    ->formatStateUsing(function ($state) {
-                        // Menyesuaikan label tampilan status
-                        return match ($state) {
-                            'belum_dijemput' => 'Belum Dijemput',
-                            'siap_dijemput' => 'Siap Dijemput',
-                            'sudah_dijemput' => 'Sudah Dijemput',
-                            'putus_kontrak' => 'Putus Kontrak',
-                            default => $state,
-                        };
-                    }),
-                Tables\Columns\TextColumn::make('date_pickup_3')->label('Tanggal Penjemputan 3')->date(),
-
-                Tables\Columns\BadgeColumn::make('pickup_4')
-                    ->label('Pickup 4')
-                    ->colors([
-                        'primary' => 'belum_dijemput',
-                        'success' => 'siap_dijemput',
-                        'success' => 'sudah_dijemput',
-                        'danger' => 'putus_kontrak',
-                    ])
-                    ->formatStateUsing(function ($state) {
-                        // Menyesuaikan label tampilan status
-                        return match ($state) {
-                            'belum_dijemput' => 'Belum Dijemput',
-                            'siap_dijemput' => 'Siap Dijemput',
-                            'sudah_dijemput' => 'Sudah Dijemput',
-                            'putus_kontrak' => 'Putus Kontrak',
-                            default => $state,
-                        };
-                    }),
-                Tables\Columns\TextColumn::make('date_pickup_4')->label('Tanggal Penjemputan 4')->date(),
-
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime()->sortable(),
             ])
             ->actions([
@@ -259,7 +118,7 @@ class LimbahResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PenjemputanLimbahRelationManager::class
         ];
     }
 
