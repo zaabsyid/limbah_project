@@ -58,6 +58,7 @@ class Customer extends Model
                     'limbah_id' => $limbah->id,
                     'pickup' => 'belum_dijemput',
                     'date_pickup' => now()->addMonths($i * 3), // Setiap 3 bulan untuk setiap periode
+                    'status_pickup_confirmation' => 'belum'
                 ]);
             }
         });

@@ -3,12 +3,13 @@
 namespace App\Filament\Resources\LimbahResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class PenjemputanLimbahRelationManager extends RelationManager
 {
@@ -29,15 +30,15 @@ class PenjemputanLimbahRelationManager extends RelationManager
                     ->label('Berat Limbah')
                     ->numeric()
                     ->required(),
-                // Forms\Components\Radio::make('pickup')
-                //     ->options([
-                //         'belum_dijemput' => 'Belum Dijemput',
-                //         'sudah_dijemput' => 'Sudah Dijemput',
-                //         'siap_dijemput' => 'Siap Dijemput',
-                //         'putus_kontrak' => 'Putus Kontrak',
-                //     ])
-                //     ->label('Pickup 1')
-                //     ->default('belum_dijemput'),
+                // Conditional Select Field
+                Forms\Components\Select::make('status_pickup_confirmation')
+                    ->label('Apakah sudah dijemput?')
+                    ->options([
+                        'sudah' => 'Sudah',
+                        'belum' => 'Belum',
+                    ])
+                    ->hidden(fn($get) => $get('pickup') !== 'siap_dijemput')
+                    ->required(fn($get) => $get('pickup') === 'siap_dijemput'),
             ]);
     }
 

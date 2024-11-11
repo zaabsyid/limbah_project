@@ -19,6 +19,7 @@ class PenjemputanLimbah extends Model
         'weight_limbah',
         'pickup',
         'date_pickup',
+        'status_pickup_confirmation',
         'created_at',
         'deleted_at'
     ];
@@ -39,6 +40,8 @@ class PenjemputanLimbah extends Model
                 $penjemputanLimbah->pickup === 'belum_dijemput'
             ) {
                 $penjemputanLimbah->pickup = 'siap_dijemput';
+            } elseif ($penjemputanLimbah->status_pickup_confirmation === 'sudah') {
+                $penjemputanLimbah->pickup = 'sudah_dijemput';
             }
         });
     }

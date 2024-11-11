@@ -19,11 +19,11 @@ return new class extends Migration
             $table->text('address');
             $table->string('occupation');
             $table->string('ktp_image');
-            $table->string('nik');
-            $table->string('str_sip');
+            $table->string('nik')->unique();
+            $table->string('str_sip')->unique();
             $table->string('str_sip_image');
             $table->string('npwp_image');
-            $table->string('npwp');
+            $table->string('npwp')->unique();
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
             $table->softDeletes();
