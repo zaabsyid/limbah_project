@@ -8,12 +8,27 @@ use Illuminate\Http\Request;
 
 class MouPdfController extends Controller
 {
-    public function downloadPdf()
+    public function previewDraft($id)
     {
-        $mous = Mou::all();
+        // Ambil data MoU berdasarkan ID
+        $mou = Mou::with(['customer', 'province', 'city'])->findOrFail($id);
 
-        $pdf = Pdf::loadView('mou_template', ['mous' => $mous]);
+        // Buat PDF dengan data MoU yang spesifik
+        $pdf = Pdf::loadView('draft_mou_template', ['mou' => $mou]);
 
-        return $pdf->download('mou.pdf');
+        // Tampilkan PDF di browser sebagai preview draft
+        return $pdf->stream("draft_mou_{$mou->mou_number}.pdf");
+    }
+
+    public function downloadPdf($id)
+    {
+        // Ambil data MoU berdasarkan ID
+        $mou = Mou::with(['customer', 'province', 'city'])->findOrFail($id);
+
+        // Buat PDF dengan data MoU yang spesifik
+        $pdf = Pdf::loadView('mou_template', ['mou' => $mou]);
+
+        // Download PDF sebagai file final
+        return $pdf->download("mou_{$mou->mou_number}.pdf");
     }
 }

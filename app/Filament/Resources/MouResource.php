@@ -63,9 +63,6 @@ class MouResource extends Resource
                         '5' => '5 Years',
                     ])
                     ->required(),
-                // Forms\Components\DatePicker::make('contract_end_date')
-                //     ->label('Contract End Date')
-                //     ->required(),
                 Forms\Components\Select::make('mou_status_file')
                     ->label('MOU Status File')
                     ->options([
@@ -73,14 +70,6 @@ class MouResource extends Resource
                         'file' => 'File',
                     ])
                     ->required(),
-                // Forms\Components\Select::make('status')
-                //     ->label('MOU Status')
-                //     ->options([
-                //         'putus_kontrak' => 'Putus Kontrak',
-                //         'sudah_perpanjang' => 'Sudah Diperpanjang',
-                //         'belum_diperpanjang' => 'Belum Diperpanjang',
-                //     ])
-                //     ->required(),
                 Forms\Components\FileUpload::make('customer_materai_1')
                     ->label('Customer Materai 1')
                     ->directory('mous/materai')
@@ -97,25 +86,6 @@ class MouResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            // gpt
-            // ->actions([
-            //     Tables\Actions\Action::make('Export Excel')
-            //         ->button()
-            //         ->action(function () {
-            //             return Excel::download(new MousExport, 'mou.xlsx');
-            //         }),
-            //     Tables\Actions\Action::make('Import Excel')
-            //         ->form([
-            //             FileUpload::make('file')->required(),
-            //         ])
-            //         ->action(function (array $data) {
-            //             Excel::import(new MousImport, $data['file']);
-            //             Notification::make()
-            //                 ->title('Import berhasil!')
-            //                 ->success()
-            //                 ->send();
-            //         }),
-            // ])
             ->headerActions([])
             ->columns([
                 Tables\Columns\TextColumn::make('mou_number')->label('MOU Number'),
@@ -144,15 +114,6 @@ class MouResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->label('Created At')->dateTime(),
             ])
             ->filters([
-                // Tables\Filters\SelectFilter::make('contract_period')
-                //     ->label('Contract Period')
-                //     ->options([
-                //         '2' => '2 Years',
-                //         '5' => '5 Years',
-                //     ])
-                //     ->query(function (Builder $query, array $data) {
-                //         return $query->where('contract_period', $data['value']);
-                //     }),
 
                 Tables\Filters\SelectFilter::make('contract_period')
                     ->label('Contract Period')
@@ -163,6 +124,13 @@ class MouResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Download or Preview')
+                    ->label(fn($record) => $record->mou_status_file === 'draft' ? 'Preview Draft' : 'Download PDF')
+                    ->url(fn($record) => $record->mou_status_file === 'draft'
+                        ? route('mou.preview', $record->id)
+                        : route('mou.download', $record->id))
+                    ->openUrlInNewTab() // Membuka di tab baru
+                    ->icon(fn($record) => $record->mou_status_file === 'draft' ? 'heroicon-o-eye' : 'heroicon-o-arrow-down-tray'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

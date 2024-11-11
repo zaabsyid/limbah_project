@@ -22,4 +22,6 @@ Route::middleware('auth:web')->group(function () {
 });
 
 
-Route::get("download", [MouPdfController::class, 'downloadPdf'])->name('mou.download');
+// Route::get("download", [MouPdfController::class, 'downloadPdf'])->name('mou.download');
+Route::get('/mou/{id}/preview', [MouPdfController::class, 'previewDraft'])->name('mou.preview');
+Route::get('/mou/{id}/download', [MouPdfController::class, 'downloadPdf'])->name('mou.download');

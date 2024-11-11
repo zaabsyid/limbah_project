@@ -14,8 +14,8 @@ class ListMous extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('Download pdf')
-                ->url(route('mou.download'))->openUrlInNewTab(),
+            // Action::make('Download pdf')
+            //     ->url(route('mou.download'))->openUrlInNewTab(),
             Actions\CreateAction::make(),
         ];
     }
