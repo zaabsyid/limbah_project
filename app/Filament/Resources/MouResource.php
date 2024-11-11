@@ -29,9 +29,11 @@ class MouResource extends Resource
 {
     protected static ?string $model = Mou::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $pluralLabel = 'MoU';
+
+    protected static ?string $navigationGroup = 'Waste & MoU Management';
 
     public static function form(Form $form): Form
     {

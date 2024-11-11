@@ -49,10 +49,9 @@ class PenjemputanLimbahRelationManager extends RelationManager
                 Tables\Columns\BadgeColumn::make('pickup')
                     ->label('Pickup')
                     ->colors([
-                        'primary' => 'belum_dijemput',
-                        'success' => 'siap_dijemput',
+                        'danger' => 'belum_dijemput',
+                        'primary' => 'siap_dijemput',
                         'success' => 'sudah_dijemput',
-                        'danger' => 'putus_kontrak',
                     ])
                     ->formatStateUsing(function ($state) {
                         // Menyesuaikan label tampilan status
@@ -60,7 +59,6 @@ class PenjemputanLimbahRelationManager extends RelationManager
                             'belum_dijemput' => 'Belum Dijemput',
                             'siap_dijemput' => 'Siap Dijemput',
                             'sudah_dijemput' => 'Sudah Dijemput',
-                            'putus_kontrak' => 'Putus Kontrak',
                             default => $state,
                         };
                     }),

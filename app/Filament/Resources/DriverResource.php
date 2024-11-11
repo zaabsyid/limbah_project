@@ -17,9 +17,13 @@ class DriverResource extends Resource
 {
     protected static ?string $model = Driver::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-truck';
 
     protected static ?string $pluralLabel = 'Driver';
+
+    protected static ?string $navigationGroup = 'Waste & MoU Management';
+
+    protected static ?int $navigationSort = 1; // Semakin kecil semakin atas
 
     public static function form(Form $form): Form
     {
@@ -78,5 +82,10 @@ class DriverResource extends Resource
             'create' => Pages\CreateDriver::route('/create'),
             'edit' => Pages\EditDriver::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('id', '>=', 2);
     }
 }

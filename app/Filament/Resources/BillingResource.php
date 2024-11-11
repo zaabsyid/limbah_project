@@ -20,9 +20,11 @@ class BillingResource extends Resource
 {
     protected static ?string $model = Billing::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
     protected static ?string $pluralLabel = 'Penagihan';
+
+    protected static ?string $navigationGroup = 'Waste & MoU Management';
 
     public static function form(Form $form): Form
     {

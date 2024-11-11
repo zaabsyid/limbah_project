@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('code_manifest')->nullable();
             $table->string('document_manifest')->nullable();
             $table->integer('weight_limbah')->nullable();
-            $table->enum('pickup', ['belum_dijemput', 'siap_dijemput', 'sudah_dijemput', 'putus_kontrak'])->default('belum_dijemput');
+            $table->enum('pickup', ['belum_dijemput', 'siap_dijemput', 'sudah_dijemput'])->default('belum_dijemput');
             $table->date('date_pickup');
             $table->timestamps();
             $table->softDeletes();

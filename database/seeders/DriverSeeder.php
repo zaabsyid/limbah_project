@@ -15,6 +15,9 @@ class DriverSeeder extends Seeder
     {
         $drivers = [
             [
+                'name' => 'Belum Dipilih'
+            ],
+            [
                 'name' => 'Budi Santoso',
                 'email' => 'budisantoso@gmail.com',
                 'phone' => '081234567890',

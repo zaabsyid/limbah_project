@@ -20,9 +20,11 @@ class PerpanjanganMouResource extends Resource
 {
     protected static ?string $model = PerpanjanganMou::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-plus';
 
     protected static ?string $pluralLabel = 'Perpanjangan MoU';
+
+    protected static ?string $navigationGroup = 'Waste & MoU Management';
 
     public static function form(Form $form): Form
     {

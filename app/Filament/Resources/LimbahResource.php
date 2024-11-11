@@ -25,9 +25,11 @@ class LimbahResource extends Resource
 {
     protected static ?string $model = Limbah::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-trash';
 
     protected static ?string $pluralLabel = 'Limbah';
+
+    protected static ?string $navigationGroup = 'Waste & MoU Management';
 
     public static function form(Form $form): Form
     {
